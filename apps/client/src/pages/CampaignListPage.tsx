@@ -55,9 +55,9 @@ export function CampaignListPage() {
   return (
     <div>
       {/* Header */}
-      <div className="flex items-end justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-[22px] font-semibold text-surface-900 tracking-tight">Campaigns</h1>
+          <h1 className="text-xl sm:text-[22px] font-semibold text-surface-900 tracking-tight">Campaigns</h1>
           <p className="text-sm text-surface-500 mt-1">{campaigns.length} campaign{campaigns.length !== 1 ? 's' : ''}</p>
         </div>
         <div className="flex gap-2">
@@ -103,8 +103,8 @@ export function CampaignListPage() {
       )}
 
       {/* Filters */}
-      <div className="flex gap-3 mb-5">
-        <div className="relative flex-1 max-w-xs">
+      <div className="flex flex-col sm:flex-row gap-3 mb-5">
+        <div className="relative flex-1 sm:max-w-xs">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" />
           <input
             type="text"
@@ -127,8 +127,8 @@ export function CampaignListPage() {
       </div>
 
       {/* Table */}
-      <div className="card overflow-hidden">
-        <table className="w-full">
+      <div className="card overflow-x-auto">
+        <table className="w-full min-w-[700px]">
           <thead>
             <tr className="border-b border-surface-100">
               <th className="w-10 px-3 py-3">

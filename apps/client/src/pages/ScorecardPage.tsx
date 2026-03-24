@@ -61,7 +61,7 @@ export function ScorecardPage() {
       </div>
 
       {/* Summary */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6">
         <div className="card px-5 py-4">
           <div className="flex items-center justify-between mb-3">
             <span className="text-[13px] font-medium text-surface-500">Avg. Score</span>
@@ -115,8 +115,8 @@ export function ScorecardPage() {
       </div>
 
       {/* Scorecard table */}
-      <div className="card overflow-hidden">
-        <table className="w-full">
+      <div className="card overflow-x-auto">
+        <table className="w-full min-w-[700px]">
           <thead>
             <tr className="border-b border-surface-100">
               <th className="text-left px-5 py-3 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">Score</th>

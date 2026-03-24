@@ -291,7 +291,7 @@ export function CampaignCreatePage() {
           <div>
             <h2 className="text-[15px] font-semibold text-surface-900 mb-1">Schedule</h2>
             <p className="text-sm text-surface-400 mb-5">Set the campaign start and end dates</p>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[13px] font-medium text-surface-700 mb-1.5">Start Date</label>
                 <input

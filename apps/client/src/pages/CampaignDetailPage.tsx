@@ -172,9 +172,9 @@ export function CampaignDetailPage() {
         )}
       </div>
 
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Main content */}
-        <div className="col-span-2 space-y-5">
+        <div className="lg:col-span-2 space-y-5">
           {/* Metadata */}
           <div className="card p-5">
             <h2 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-4">Details</h2>

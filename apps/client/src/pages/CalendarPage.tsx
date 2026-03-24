@@ -156,7 +156,7 @@ export function CalendarPage() {
       </div>
 
       {/* Legend */}
-      <div className="flex items-center gap-4 mt-4 px-1">
+      <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-4 px-1">
         {campaigns.map((c) => (
           <div
             key={c.id}

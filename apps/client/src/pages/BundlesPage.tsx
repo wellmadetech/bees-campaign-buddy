@@ -169,7 +169,7 @@ export function BundlesPage() {
       )}
 
       {/* Bundle cards */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {filtered.filter((b) => statusFilter || !b.featured).map((bundle) => (
           <div key={bundle.id} className="card overflow-hidden group hover:shadow-[--shadow-elevated] transition-shadow duration-200">
             <div className="relative h-36 bg-surface-100">

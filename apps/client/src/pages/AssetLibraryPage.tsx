@@ -93,7 +93,7 @@ export function AssetLibraryPage() {
       </div>
 
       {/* Filters */}
-      <div className="flex gap-3 mb-5">
+      <div className="flex flex-col sm:flex-row gap-3 mb-5">
         <div className="relative flex-1 max-w-xs">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" />
           <input type="text" placeholder="Search by filename..." value={search} onChange={(e) => setSearch(e.target.value)} className="input-field pl-9" />
@@ -113,7 +113,7 @@ export function AssetLibraryPage() {
           <p className="text-sm text-surface-500">No assets found</p>
         </div>
       ) : (
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
           {filtered.map((asset) => (
             <div key={asset.id} className="card overflow-hidden group">
               <div className="relative h-36 bg-surface-100">

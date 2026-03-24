@@ -77,7 +77,7 @@ function OrgReporting() {
   return (
     <>
       {/* KPI cards */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
         {[
           { label: 'Total Campaigns (2025)', value: ORG_STATS.total.toLocaleString(), icon: BarChart3, style: 'text-info-600 bg-info-50' },
           { label: 'This Month', value: ORG_STATS.thisMonth.toString(), icon: TrendingUp, style: 'text-success-600 bg-success-50' },
@@ -96,7 +96,7 @@ function OrgReporting() {
         ))}
       </div>
 
-      <div className="grid grid-cols-2 gap-5 mb-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
         {/* Monthly Trend */}
         <div className="card p-5">
           <h2 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-4">Monthly Volume</h2>
@@ -130,7 +130,7 @@ function OrgReporting() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {/* By Status */}
         <div className="card p-5">
           <h2 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-4">By Status</h2>
@@ -170,7 +170,7 @@ function WholesalerReporting() {
   return (
     <>
       {/* Personal KPIs */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
         {[
           { label: 'Total Sent', value: formatNum(MY_TOTALS.totalSent), icon: Send, style: 'text-info-600 bg-info-50' },
           { label: 'Avg. Open Rate', value: `${MY_TOTALS.avgOpenRate}%`, icon: Eye, style: 'text-brand-600 bg-brand-100' },
@@ -190,7 +190,7 @@ function WholesalerReporting() {
       </div>
 
       {/* Campaign performance table */}
-      <div className="card overflow-hidden">
+      <div className="card overflow-x-auto">
         <div className="px-5 py-4 border-b border-surface-100">
           <h2 className="text-[15px] font-semibold text-surface-900">Campaign Performance</h2>
           <p className="text-xs text-surface-400 mt-0.5">Delivery and engagement metrics for your launched campaigns</p>
