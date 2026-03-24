@@ -24,10 +24,16 @@ app.use('/api', routes);
 
 // Serve client in production
 if (config.NODE_ENV === 'production') {
-  const clientDist = path.resolve(__dirname, '../../../client/dist');
+  // __dirname is apps/server/dist/ in compiled output
+  // client dist is at apps/client/dist/ — so go up to apps/, then into client/dist
+  const clientDist = path.resolve(__dirname, '../../client/dist');
+  console.log(`[Static] Serving client from: ${clientDist}`);
   app.use(express.static(clientDist));
-  app.get('*', (_req, res) => {
-    res.sendFile(path.join(clientDist, 'index.html'));
+  app.get('*', (_req, res, next) => {
+    const indexPath = path.join(clientDist, 'index.html');
+    res.sendFile(indexPath, (err) => {
+      if (err) next(err);
+    });
   });
 }
 
