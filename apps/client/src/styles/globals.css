@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+@theme {
+  /* Primary brand — warm amber */
+  --color-brand-50: #fffbf0;
+  --color-brand-100: #fff3d6;
+  --color-brand-200: #ffe4a8;
+  --color-brand-300: #ffd073;
+  --color-brand-400: #ffb83d;
+  --color-brand-500: #f5a623;
+  --color-brand-600: #e08d0d;
+  --color-brand-700: #b86e08;
+  --color-brand-800: #8c5409;
+  --color-brand-900: #6b4107;
+
+  /* Neutral slate tones */
+  --color-surface-0: #ffffff;
+  --color-surface-50: #f8fafc;
+  --color-surface-100: #f1f5f9;
+  --color-surface-200: #e2e8f0;
+  --color-surface-300: #cbd5e1;
+  --color-surface-400: #94a3b8;
+  --color-surface-500: #64748b;
+  --color-surface-600: #475569;
+  --color-surface-700: #334155;
+  --color-surface-800: #1e293b;
+  --color-surface-900: #0f172a;
+
+  /* Status colors */
+  --color-success-50: #f0fdf4;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-warn-50: #fffbeb;
+  --color-warn-500: #f59e0b;
+  --color-warn-600: #d97706;
+  --color-danger-50: #fef2f2;
+  --color-danger-500: #ef4444;
+  --color-danger-600: #dc2626;
+  --color-info-50: #eff6ff;
+  --color-info-500: #3b82f6;
+  --color-info-600: #2563eb;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+  --shadow-elevated: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-modal: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.06);
+
+  /* Radius */
+  --radius-card: 12px;
+  --radius-button: 8px;
+  --radius-badge: 6px;
+  --radius-input: 8px;
+
+  /* Keep honey aliases for backwards compat */
+  --color-honey-50: #fffbf0;
+  --color-honey-100: #fff3d6;
+  --color-honey-200: #ffe4a8;
+  --color-honey-500: #f5a623;
+  --color-honey-600: #e08d0d;
+  --color-honey-700: #b86e08;
+  --color-honey-800: #8c5409;
+}
+
+@layer base {
+  body {
+    @apply bg-surface-50 text-surface-900 antialiased;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.011em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5
+           bg-surface-900 text-white text-sm font-medium
+           rounded-[--radius-button] transition-all duration-150
+           hover:bg-surface-800 active:scale-[0.98]
+           disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5
+           bg-white text-surface-700 text-sm font-medium
+           border border-surface-200 rounded-[--radius-button]
+           transition-all duration-150
+           hover:bg-surface-50 hover:border-surface-300 active:scale-[0.98]
+           disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-3 py-2
+           text-surface-500 text-sm font-medium
+           rounded-[--radius-button] transition-all duration-150
+           hover:bg-surface-100 hover:text-surface-700;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5
+           text-danger-600 text-sm font-medium
+           rounded-[--radius-button] transition-all duration-150
+           hover:bg-danger-50 active:scale-[0.98];
+  }
+
+  .card {
+    @apply bg-white rounded-[--radius-card] border border-surface-200/80
+           shadow-[--shadow-card];
+  }
+
+  .input-field {
+    @apply w-full px-3.5 py-2.5 bg-white text-sm text-surface-900
+           border border-surface-200 rounded-[--radius-input]
+           placeholder:text-surface-400
+           transition-all duration-150
+           focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-1 text-xs font-medium
+           rounded-[--radius-badge];
+  }
+
+  .badge-default { @apply bg-surface-100 text-surface-600; }
+  .badge-brand { @apply bg-brand-100 text-brand-800; }
+  .badge-success { @apply bg-success-50 text-success-600; }
+  .badge-warn { @apply bg-warn-50 text-warn-600; }
+  .badge-danger { @apply bg-danger-50 text-danger-600; }
+  .badge-info { @apply bg-info-50 text-info-600; }
+}
