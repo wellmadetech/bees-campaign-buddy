@@ -5,7 +5,7 @@ dotenv.config();
 
 const envSchema = z.object({
   PORT: z.coerce.number().default(4000),
-  DATABASE_URL: z.string().url(),
+  DATABASE_URL: z.string(),
   JWT_SECRET: z.string().min(10),
   JWT_EXPIRES_IN: z.string().default('15m'),
   BEES_SSO_CLIENT_ID: z.string().default('campaign-buddy'),
