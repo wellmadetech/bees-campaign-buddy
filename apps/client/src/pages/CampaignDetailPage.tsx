@@ -28,6 +28,7 @@ type DetailCampaign = {
 };
 
 const MOCK_CAMPAIGNS: Record<string, DetailCampaign> = {
+  'demo-stpat': { id: 'demo-stpat', title: "St. Patrick's Day — Opt-In Selections", description: "March & April opt-in campaign for St. Patrick's Day themed promotions. Wholesalers can access curated selections of Irish-style beers, stouts, and seasonal bundles through the BEES platform. Selection window opened Feb 9 and closed Feb 20 — selections are now live.", status: 'active', campaignTypeCode: 'opt_in', branchName: 'Northeast Distribution', createdByName: 'Dana Campbell', createdAt: '2026-03-01T09:00:00Z', updatedAt: '2026-03-17T10:00:00Z', contentJson: { headline: "St. Patrick's Day Opt-In Selections Are Live!", body: "Your curated St. Patrick's Day selections are now available on BEES. Explore Irish stouts, ales, and festive bundles hand-picked for the season. March & April selections go live now — stock up before the holiday rush!", cta: 'Access Opt-In Selections Here' }, scheduledStart: '2026-03-01T09:00:00Z', scheduledEnd: '2026-04-30T23:59:00Z', brazeCampaignId: 'brz-stpat-2026', brazeSegmentId: 'seg-stpat-northeast', brazeStatus: 'active', assignedToName: 'Carmen Rodriguez', campaignTypeId: 'ct-3', templateId: null, branchId: 'branch-1', createdBy: 'demo-dc-001', assignedTo: 'demo-cc-001', parentId: null, creativeJson: null, productsJson: null, isDeleted: false },
   'demo-1': { id: 'demo-1', title: 'Spring Beer Promo — Bud Light', description: 'Push notification campaign to promote Bud Light spring lineup across Northeast retailers.', status: 'active', campaignTypeCode: 'ad_hoc_sales', branchName: 'Northeast Distribution', createdByName: 'Walter Smith', createdAt: '2026-03-20T10:00:00Z', updatedAt: '2026-03-21T14:00:00Z', contentJson: { headline: 'Spring Into Savings!', body: 'Order Bud Light cases this week and get 10% off your next delivery. Limited time offer for BEES retailers.', cta: 'Order Now' }, scheduledStart: '2026-03-25T09:00:00Z', scheduledEnd: '2026-04-15T23:59:00Z', brazeCampaignId: 'brz-abc-123', brazeSegmentId: 'seg-xyz-456', brazeStatus: 'active', assignedToName: null, campaignTypeId: 'ct-1', templateId: null, branchId: 'branch-1', createdBy: 'demo-ws-001', assignedTo: null, parentId: null, creativeJson: null, productsJson: null, isDeleted: false },
   'demo-2': { id: 'demo-2', title: 'Holiday Closure Notice — Memorial Day', description: 'Operational notice for Memorial Day warehouse closure and adjusted delivery schedule.', status: 'in_progress', campaignTypeCode: 'ad_hoc_operational', branchName: 'Southeast Distribution', createdByName: 'Walter Smith', createdAt: '2026-03-19T14:30:00Z', updatedAt: '2026-03-20T09:00:00Z', contentJson: { headline: 'Memorial Day Delivery Update', body: 'Our warehouse will be closed May 26. Orders placed by May 23 will be delivered on schedule.', cta: 'View Schedule' }, scheduledStart: '2026-05-20T08:00:00Z', scheduledEnd: '2026-05-25T23:59:00Z', brazeCampaignId: null, brazeSegmentId: null, brazeStatus: null, assignedToName: 'Carmen Rodriguez', campaignTypeId: 'ct-2', templateId: null, branchId: 'branch-2', createdBy: 'demo-ws-001', assignedTo: 'demo-cc-001', parentId: null, creativeJson: null, productsJson: null, isDeleted: false },
   'demo-3': { id: 'demo-3', title: 'New IPA Launch — Goose Island', description: 'Lifecycle campaign for the launch of Goose Island new seasonal IPA.', status: 'scheduled', campaignTypeCode: 'lifecycle', branchName: 'Northeast Distribution', createdByName: 'Dana Campbell', createdAt: '2026-03-18T09:15:00Z', updatedAt: '2026-03-19T16:00:00Z', contentJson: { headline: 'Try the New Goose Island Seasonal IPA', body: 'Introducing Goose Island Summer Haze — a refreshing new IPA perfect for the season.', cta: 'Learn More' }, scheduledStart: '2026-04-01T09:00:00Z', scheduledEnd: null, brazeCampaignId: 'brz-def-456', brazeSegmentId: 'seg-abc-789', brazeStatus: 'draft', assignedToName: 'Carmen Rodriguez', campaignTypeId: 'ct-5', templateId: null, branchId: 'branch-1', createdBy: 'demo-dc-001', assignedTo: 'demo-cc-001', parentId: 'demo-1', creativeJson: null, productsJson: null, isDeleted: false },
@@ -216,16 +217,24 @@ export function CampaignDetailPage() {
 
           {/* Content Preview */}
           {campaign.contentJson && (
-            <div className="card p-5">
-              <h2 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-4">Content Preview</h2>
-              <div className="bg-surface-50 rounded-xl p-5 border border-surface-100">
-                {campaign.contentJson.headline && <h3 className="text-lg font-semibold text-surface-900 mb-2">{campaign.contentJson.headline}</h3>}
-                {campaign.contentJson.body && <p className="text-sm text-surface-600 leading-relaxed mb-4">{campaign.contentJson.body}</p>}
-                {campaign.contentJson.cta && (
-                  <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-surface-900 text-white text-sm font-medium rounded-lg">
-                    {campaign.contentJson.cta} <ExternalLink className="w-3.5 h-3.5" />
-                  </span>
-                )}
+            <div className="card overflow-hidden">
+              {/* Banner image if available */}
+              {campaign.id === 'demo-stpat' && (
+                <div className="w-full">
+                  <img src="/assets/st-patricks-banner.webp" alt="St. Patrick's Day Campaign Banner" className="w-full h-auto" />
+                </div>
+              )}
+              <div className="p-5">
+                <h2 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-4">Content Preview</h2>
+                <div className="bg-surface-50 rounded-xl p-5 border border-surface-100">
+                  {campaign.contentJson.headline && <h3 className="text-lg font-semibold text-surface-900 mb-2">{campaign.contentJson.headline}</h3>}
+                  {campaign.contentJson.body && <p className="text-sm text-surface-600 leading-relaxed mb-4">{campaign.contentJson.body}</p>}
+                  {campaign.contentJson.cta && (
+                    <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-surface-900 text-white text-sm font-medium rounded-lg">
+                      {campaign.contentJson.cta} <ExternalLink className="w-3.5 h-3.5" />
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           )}

@@ -17,12 +17,14 @@ interface CalendarCampaign {
 
 const MONTH_CAMPAIGNS: Record<string, CalendarCampaign[]> = {
   '2026-3': [
+    { id: 'demo-stpat', title: "St. Patrick's Day — Opt-In", status: 'active', startDay: 1, endDay: 31, color: 'bg-green-600' },
     { id: 'demo-1', title: 'Spring Beer Promo — Bud Light', status: 'active', startDay: 20, endDay: 31, color: 'bg-success-500' },
     { id: 'demo-2', title: 'Holiday Closure — Memorial Day', status: 'in_progress', startDay: 15, endDay: 25, color: 'bg-brand-500' },
     { id: 'demo-5', title: 'Delivery Reroute — I-95', status: 'needs_attention', startDay: 24, endDay: 28, color: 'bg-danger-500' },
     { id: 'demo-8', title: 'Edge Rec — Stella Artois', status: 'in_progress', startDay: 10, endDay: 18, color: 'bg-info-500' },
   ],
   '2026-4': [
+    { id: 'demo-stpat', title: "St. Patrick's Day — Opt-In", status: 'active', startDay: 1, endDay: 30, color: 'bg-green-600' },
     { id: 'demo-1', title: 'Spring Beer Promo — Bud Light', status: 'active', startDay: 1, endDay: 15, color: 'bg-success-500' },
     { id: 'demo-3', title: 'New IPA Launch — Goose Island', status: 'scheduled', startDay: 1, endDay: 14, color: 'bg-warn-500' },
     { id: 'demo-4', title: 'Cinco de Mayo — Corona Bundle', status: 'in_progress', startDay: 28, endDay: 30, color: 'bg-surface-400' },

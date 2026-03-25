@@ -9,6 +9,7 @@ import { getStatusStyle } from '../utils/statusHelpers';
 import { Plus, Search, Download, CheckSquare, ArrowRight } from 'lucide-react';
 
 const MOCK_CAMPAIGNS = [
+  { id: 'demo-stpat', title: "St. Patrick's Day — Opt-In Selections", status: 'active' as CampaignStatus, branchName: 'Northeast Distribution', createdAt: '2026-03-01T09:00:00Z', campaignTypeCode: 'opt_in' as CampaignTypeCode, createdByName: 'Dana Campbell' },
   { id: 'demo-1', title: 'Spring Beer Promo — Bud Light', status: 'active' as CampaignStatus, branchName: 'Northeast Distribution', createdAt: '2026-03-20T10:00:00Z', campaignTypeCode: 'ad_hoc_sales' as CampaignTypeCode, createdByName: 'Walter Smith' },
   { id: 'demo-2', title: 'Holiday Closure Notice — Memorial Day', status: 'in_progress' as CampaignStatus, branchName: 'Southeast Distribution', createdAt: '2026-03-19T14:30:00Z', campaignTypeCode: 'ad_hoc_operational' as CampaignTypeCode, createdByName: 'Walter Smith' },
   { id: 'demo-3', title: 'New IPA Launch — Goose Island', status: 'scheduled' as CampaignStatus, branchName: 'Northeast Distribution', createdAt: '2026-03-18T09:15:00Z', campaignTypeCode: 'lifecycle' as CampaignTypeCode, createdByName: 'Dana Campbell' },
