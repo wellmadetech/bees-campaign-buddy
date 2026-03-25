@@ -11,7 +11,6 @@ import {
 import type { CampaignStatus, CampaignTypeCode } from '@campaignbuddy/shared';
 import { getStatusStyle } from '../utils/statusHelpers';
 import { CampaignComments } from '../components/campaigns/CampaignComments';
-import { OrchestrationPipeline } from '../components/campaigns/OrchestrationPipeline';
 import { ApprovalReview } from '../components/campaigns/ApprovalReview';
 import { ArrowLeft, Trash2, Clock, ArrowRight, ExternalLink, Copy, Pencil, X, Check, Pause, Play, GitBranch, Link2 } from 'lucide-react';
 
@@ -269,11 +268,6 @@ export function CampaignDetailPage() {
             cta={campaign.contentJson?.cta}
             status={campaign.status}
           />
-
-          {/* Orchestration Pipeline */}
-          {campaign.brazeCampaignId && (
-            <OrchestrationPipeline jobs={[]} />
-          )}
 
           {/* Child Campaigns (Phase 6) */}
           {children.length > 0 && (
