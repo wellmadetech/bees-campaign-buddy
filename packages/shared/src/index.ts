@@ -1,7 +1,7 @@
 // Constants
 export { UserRole, ROLE_LABELS } from './constants/roles.js';
 export { CampaignTypeCode, CAMPAIGN_TYPE_LABELS, CAMPAIGN_TYPE_DESCRIPTIONS } from './constants/campaignTypes.js';
-export { CampaignStatus, STATUS_LABELS, ALLOWED_TRANSITIONS, OrchestrationStep, JobStatus } from './constants/statuses.js';
+export { CampaignStatus, STATUS_LABELS, ALLOWED_TRANSITIONS, RequestStatus, REQUEST_STATUS_LABELS, OrchestrationStep, JobStatus } from './constants/statuses.js';
 
 // Types
 export type { User, UserWithBranches, UserBranch, CreateUserRequest, UpdateUserRequest } from './types/user.js';

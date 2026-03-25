@@ -14,12 +14,12 @@ const ORG_STATS = {
 
 const BY_STATUS: { status: CampaignStatus; count: number }[] = [
   { status: 'completed', count: 1842 },
-  { status: 'launched', count: 187 },
+  { status: 'active', count: 187 },
   { status: 'in_progress', count: 98 },
-  { status: 'draft', count: 64 },
-  { status: 'in_qa', count: 42 },
-  { status: 'submitted', count: 31 },
-  { status: 'feedback_needed', count: 18 },
+  { status: 'in_progress', count: 64 },
+  { status: 'scheduled', count: 42 },
+  { status: 'in_progress', count: 31 },
+  { status: 'needs_attention', count: 18 },
   { status: 'cancelled', count: 15 },
 ];
 
@@ -50,10 +50,10 @@ const MONTHLY_TREND = [
 
 // Wholesaler — per-campaign performance data
 const MY_CAMPAIGNS_PERFORMANCE = [
-  { id: 'demo-1', title: 'Spring Beer Promo — Bud Light', status: 'launched' as CampaignStatus, sent: 4820, delivered: 4756, opened: 1892, clicked: 643, ctr: 13.5, openRate: 39.8, revenue: 28450 },
-  { id: 'demo-6', title: 'Summer Seltzer Push — Michelob Ultra', status: 'launched' as CampaignStatus, sent: 3210, delivered: 3178, opened: 1340, clicked: 487, ctr: 15.3, openRate: 42.2, revenue: 19200 },
+  { id: 'demo-1', title: 'Spring Beer Promo — Bud Light', status: 'active' as CampaignStatus, sent: 4820, delivered: 4756, opened: 1892, clicked: 643, ctr: 13.5, openRate: 39.8, revenue: 28450 },
+  { id: 'demo-6', title: 'Summer Seltzer Push — Michelob Ultra', status: 'active' as CampaignStatus, sent: 3210, delivered: 3178, opened: 1340, clicked: 487, ctr: 15.3, openRate: 42.2, revenue: 19200 },
   { id: 'demo-7', title: 'NPS Survey — Q1 2026', status: 'completed' as CampaignStatus, sent: 5100, delivered: 5043, opened: 2115, clicked: 892, ctr: 17.7, openRate: 41.9, revenue: 0 },
-  { id: 'demo-10', title: 'Opt-in: BEES Rewards Launch', status: 'launched' as CampaignStatus, sent: 8450, delivered: 8372, opened: 3768, clicked: 1504, ctr: 18.0, openRate: 45.0, revenue: 42100 },
+  { id: 'demo-10', title: 'Opt-in: BEES Rewards Launch', status: 'active' as CampaignStatus, sent: 8450, delivered: 8372, opened: 3768, clicked: 1504, ctr: 18.0, openRate: 45.0, revenue: 42100 },
 ];
 
 const MY_TOTALS = {
@@ -280,6 +280,38 @@ export function ReportingPage() {
         </p>
       </div>
       {isDcManager ? <OrgReporting /> : <WholesalerReporting />}
+
+      {/* What Worked Before */}
+      <div className="card overflow-hidden mt-6">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-surface-100">
+          <h2 className="text-[15px] font-semibold text-surface-900">What Worked Before</h2>
+          <span className="text-[11px] text-surface-400">Top performing campaigns — reuse their format</span>
+        </div>
+        <div>
+          {[
+            { title: 'BEES Rewards Launch', openRate: 45.0, ctr: 18.0, revenue: '$42.1k', type: 'Opt-in' },
+            { title: 'Summer Seltzer Push — Michelob Ultra', openRate: 42.2, ctr: 15.3, revenue: '$19.2k', type: 'Ad-hoc Sales' },
+            { title: 'Spring Beer Promo — Bud Light', openRate: 39.8, ctr: 13.5, revenue: '$28.5k', type: 'Ad-hoc Sales' },
+          ].map((c, i, arr) => (
+            <div key={c.title} className={`flex items-center justify-between px-5 py-3.5 hover:bg-surface-50 transition-colors ${i < arr.length - 1 ? 'border-b border-surface-100/60' : ''}`}>
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="text-[11px] font-bold text-brand-500 tabular-nums w-4">#{i + 1}</span>
+                <div>
+                  <span className="text-sm font-medium text-surface-900">{c.title}</span>
+                  <span className="text-[11px] text-surface-400 ml-2">{c.type}</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-5 shrink-0 ml-4">
+                <div className="text-right hidden sm:block">
+                  <div className="text-xs font-medium text-success-600 tabular-nums">{c.openRate}% open</div>
+                  <div className="text-[10px] text-surface-400 tabular-nums">{c.ctr}% CTR</div>
+                </div>
+                <span className="text-xs font-semibold text-surface-900 tabular-nums w-14 text-right">{c.revenue}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

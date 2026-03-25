@@ -9,16 +9,16 @@ import { getStatusStyle } from '../utils/statusHelpers';
 import { Plus, Search, Download, CheckSquare, ArrowRight } from 'lucide-react';
 
 const MOCK_CAMPAIGNS = [
-  { id: 'demo-1', title: 'Spring Beer Promo — Bud Light', status: 'launched' as CampaignStatus, branchName: 'Northeast Distribution', createdAt: '2026-03-20T10:00:00Z', campaignTypeCode: 'ad_hoc_sales' as CampaignTypeCode, createdByName: 'Walter Smith' },
+  { id: 'demo-1', title: 'Spring Beer Promo — Bud Light', status: 'active' as CampaignStatus, branchName: 'Northeast Distribution', createdAt: '2026-03-20T10:00:00Z', campaignTypeCode: 'ad_hoc_sales' as CampaignTypeCode, createdByName: 'Walter Smith' },
   { id: 'demo-2', title: 'Holiday Closure Notice — Memorial Day', status: 'in_progress' as CampaignStatus, branchName: 'Southeast Distribution', createdAt: '2026-03-19T14:30:00Z', campaignTypeCode: 'ad_hoc_operational' as CampaignTypeCode, createdByName: 'Walter Smith' },
-  { id: 'demo-3', title: 'New IPA Launch — Goose Island', status: 'in_qa' as CampaignStatus, branchName: 'Northeast Distribution', createdAt: '2026-03-18T09:15:00Z', campaignTypeCode: 'lifecycle' as CampaignTypeCode, createdByName: 'Dana Campbell' },
-  { id: 'demo-4', title: 'Cinco de Mayo — Corona Bundle', status: 'draft' as CampaignStatus, branchName: 'West Coast Distribution', createdAt: '2026-03-17T16:45:00Z', campaignTypeCode: 'ad_hoc_sales' as CampaignTypeCode, createdByName: 'Walter Smith' },
-  { id: 'demo-5', title: 'Delivery Reroute — I-95 Construction', status: 'feedback_needed' as CampaignStatus, branchName: 'Northeast Distribution', createdAt: '2026-03-16T11:00:00Z', campaignTypeCode: 'ad_hoc_operational' as CampaignTypeCode, createdByName: 'Dana Campbell' },
-  { id: 'demo-6', title: 'Summer Seltzer Push — Michelob Ultra', status: 'launched' as CampaignStatus, branchName: 'Southeast Distribution', createdAt: '2026-03-15T08:30:00Z', campaignTypeCode: 'ad_hoc_sales' as CampaignTypeCode, createdByName: 'Walter Smith' },
+  { id: 'demo-3', title: 'New IPA Launch — Goose Island', status: 'scheduled' as CampaignStatus, branchName: 'Northeast Distribution', createdAt: '2026-03-18T09:15:00Z', campaignTypeCode: 'lifecycle' as CampaignTypeCode, createdByName: 'Dana Campbell' },
+  { id: 'demo-4', title: 'Cinco de Mayo — Corona Bundle', status: 'in_progress' as CampaignStatus, branchName: 'West Coast Distribution', createdAt: '2026-03-17T16:45:00Z', campaignTypeCode: 'ad_hoc_sales' as CampaignTypeCode, createdByName: 'Walter Smith' },
+  { id: 'demo-5', title: 'Delivery Reroute — I-95 Construction', status: 'needs_attention' as CampaignStatus, branchName: 'Northeast Distribution', createdAt: '2026-03-16T11:00:00Z', campaignTypeCode: 'ad_hoc_operational' as CampaignTypeCode, createdByName: 'Dana Campbell' },
+  { id: 'demo-6', title: 'Summer Seltzer Push — Michelob Ultra', status: 'active' as CampaignStatus, branchName: 'Southeast Distribution', createdAt: '2026-03-15T08:30:00Z', campaignTypeCode: 'ad_hoc_sales' as CampaignTypeCode, createdByName: 'Walter Smith' },
   { id: 'demo-7', title: 'NPS Survey — Q1 2026', status: 'completed' as CampaignStatus, branchName: 'West Coast Distribution', createdAt: '2026-03-14T13:00:00Z', campaignTypeCode: 'lifecycle' as CampaignTypeCode, createdByName: 'Dana Campbell' },
-  { id: 'demo-8', title: 'Edge Recommendation — Stella Artois', status: 'submitted' as CampaignStatus, branchName: 'Northeast Distribution', createdAt: '2026-03-13T10:20:00Z', campaignTypeCode: 'edge_algo' as CampaignTypeCode, createdByName: 'Walter Smith' },
-  { id: 'demo-9', title: 'Price Increase Notice — March 2026', status: 'approved' as CampaignStatus, branchName: 'Southeast Distribution', createdAt: '2026-03-12T15:00:00Z', campaignTypeCode: 'ad_hoc_operational' as CampaignTypeCode, createdByName: 'Dana Campbell' },
-  { id: 'demo-10', title: 'Opt-in: BEES Rewards Launch', status: 'launched' as CampaignStatus, branchName: 'West Coast Distribution', createdAt: '2026-03-11T09:45:00Z', campaignTypeCode: 'opt_in' as CampaignTypeCode, createdByName: 'Walter Smith' },
+  { id: 'demo-8', title: 'Edge Recommendation — Stella Artois', status: 'scheduled' as CampaignStatus, branchName: 'Northeast Distribution', createdAt: '2026-03-13T10:20:00Z', campaignTypeCode: 'edge_algo' as CampaignTypeCode, createdByName: 'Walter Smith' },
+  { id: 'demo-9', title: 'Price Increase Notice — March 2026', status: 'scheduled' as CampaignStatus, branchName: 'Southeast Distribution', createdAt: '2026-03-12T15:00:00Z', campaignTypeCode: 'ad_hoc_operational' as CampaignTypeCode, createdByName: 'Dana Campbell' },
+  { id: 'demo-10', title: 'Opt-in: BEES Rewards Launch', status: 'active' as CampaignStatus, branchName: 'West Coast Distribution', createdAt: '2026-03-11T09:45:00Z', campaignTypeCode: 'opt_in' as CampaignTypeCode, createdByName: 'Walter Smith' },
 ];
 
 export function CampaignListPage() {
@@ -141,7 +141,7 @@ export function CampaignListPage() {
               </th>
               <th className="text-left px-5 py-3 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">Campaign</th>
               <th className="text-left px-5 py-3 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">Type</th>
-              <th className="text-left px-5 py-3 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">Branch</th>
+              <th className="text-left px-5 py-3 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">Wholesaler</th>
               <th className="text-left px-5 py-3 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">Status</th>
               <th className="text-left px-5 py-3 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">Created by</th>
               <th className="text-left px-5 py-3 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">Date</th>

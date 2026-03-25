@@ -99,7 +99,7 @@ export function OnboardingPage() {
                 <div className="text-[13px] font-medium text-surface-700 mb-1">Your Role</div>
                 <div className="flex items-center gap-2">
                   <span className="badge badge-brand">
-                    {user?.role === 'dc_manager' ? 'DC Manager' : user?.role === 'content_creator' ? 'Content Creator' : 'Wholesaler Manager'}
+                    {user?.role === 'dc_manager' ? 'Digicomm Manager' : user?.role === 'content_creator' ? 'Asset Creator' : 'Wholesaler Manager'}
                   </span>
                   <span className="text-xs text-surface-400">
                     {user?.role === 'dc_manager'

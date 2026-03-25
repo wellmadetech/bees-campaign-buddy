@@ -8,6 +8,6 @@ export type UserRole = (typeof UserRole)[keyof typeof UserRole];
 
 export const ROLE_LABELS: Record<UserRole, string> = {
   wholesaler_manager: 'Wholesaler Manager',
-  content_creator: 'Content Creator & UX',
-  dc_manager: 'DC Manager',
+  content_creator: 'Asset Creator',
+  dc_manager: 'Digicomm Manager',
 };

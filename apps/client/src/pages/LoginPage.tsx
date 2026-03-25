@@ -9,7 +9,7 @@ const DEV_USERS = [
   {
     ssoId: 'sso-dc-manager-001',
     label: 'Dana Campbell',
-    subtitle: 'DC Manager',
+    subtitle: 'Digicomm Manager',
     description: 'Full access — manage users, campaigns, and workflows',
     icon: Shield,
     mock: {
@@ -37,7 +37,7 @@ const DEV_USERS = [
   {
     ssoId: 'sso-creator-001',
     label: 'Carmen Rodriguez',
-    subtitle: 'Content Creator',
+    subtitle: 'Asset Creator',
     description: 'Review drafts, customize content, manage templates',
     icon: Palette,
     mock: {

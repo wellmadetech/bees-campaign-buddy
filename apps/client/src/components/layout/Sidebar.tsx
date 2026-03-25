@@ -1,18 +1,18 @@
 import { NavLink } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
-import { LayoutDashboard, Megaphone, CalendarDays, Package, FileText, ImageIcon, BarChart3, ClipboardCheck, Users, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, Megaphone, CalendarDays, Package, FileText, ImageIcon, BarChart3, Inbox, Users, Settings, LogOut } from 'lucide-react';
 import { clsx } from 'clsx';
 import { useNavigate } from 'react-router-dom';
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
+  { to: '/requests', icon: Inbox, label: 'Requests', roles: ['dc_manager'] },
   { to: '/campaigns', icon: Megaphone, label: 'Campaigns' },
   { to: '/calendar', icon: CalendarDays, label: 'Calendar' },
   { to: '/bundles', icon: Package, label: 'Bundles' },
   { to: '/templates', icon: FileText, label: 'Templates' },
   { to: '/assets', icon: ImageIcon, label: 'Assets' },
   { to: '/reporting', icon: BarChart3, label: 'Reporting' },
-  { to: '/scorecard', icon: ClipboardCheck, label: 'Scorecard', roles: ['dc_manager'] },
   { to: '/users', icon: Users, label: 'Users', roles: ['dc_manager'] },
   { to: '/settings', icon: Settings, label: 'Settings' },
 ];

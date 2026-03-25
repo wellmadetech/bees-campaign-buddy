@@ -151,7 +151,7 @@ export async function createCampaign(input: CreateCampaignInput, userId: string)
   // Record status history
   await db.insert(campaignStatusHistory).values({
     campaignId: campaign!.id,
-    toStatus: 'draft',
+    toStatus: 'in_progress',
     changedBy: userId,
   });
 
@@ -160,8 +160,8 @@ export async function createCampaign(input: CreateCampaignInput, userId: string)
 
 export async function updateCampaign(id: string, input: UpdateCampaignInput) {
   const existing = await getCampaignById(id);
-  if (existing.status !== 'draft' && existing.status !== 'feedback_needed') {
-    throw new AppError(400, 'Campaign can only be edited in draft or feedback_needed status');
+  if (existing.status !== 'in_progress' && existing.status !== 'needs_attention') {
+    throw new AppError(400, 'Campaign can only be edited in in_progress or needs_attention status');
   }
 
   await db
@@ -225,7 +225,7 @@ export async function duplicateCampaign(id: string, userId: string, targetBranch
 
   await db.insert(campaignStatusHistory).values({
     campaignId: duplicate!.id,
-    toStatus: 'draft',
+    toStatus: 'in_progress',
     changedBy: userId,
     notes: `Duplicated from campaign ${id}`,
   });

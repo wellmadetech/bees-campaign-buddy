@@ -55,17 +55,12 @@ export const updateCampaignSchema = z.object({
 
 export const transitionCampaignSchema = z.object({
   to: z.enum([
-    'draft',
-    'submitted',
-    'picked_up',
     'in_progress',
-    'in_qa',
-    'feedback_needed',
-    'approved',
-    'launched',
-    'paused',
-    'cancelled',
+    'scheduled',
+    'active',
     'completed',
+    'needs_attention',
+    'cancelled',
   ]),
   notes: z.string().max(1000).optional(),
 });

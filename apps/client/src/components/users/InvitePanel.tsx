@@ -133,8 +133,8 @@ export function InvitePanel() {
                   <option value="wholesaler_manager">Wholesaler Manager</option>
                 ) : (
                   <>
-                    <option value="content_creator">Content Creator & UX</option>
-                    <option value="dc_manager">DC Manager</option>
+                    <option value="content_creator">Asset Creator</option>
+                    <option value="dc_manager">Digicomm Manager</option>
                   </>
                 )}
               </select>

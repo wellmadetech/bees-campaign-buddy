@@ -55,9 +55,9 @@ export async function submit(req: Request, res: Response, next: NextFunction) {
   try {
     const campaign = await campaignService.transitionCampaign(
       paramId(req),
-      'submitted',
+      'in_progress',
       req.user!.userId,
-      'Campaign submitted for processing',
+      'Campaign accepted and processing started',
     );
     // Fire-and-forget orchestration pipeline
     void runOrchestration(paramId(req), req.user!.userId).catch((err) => {

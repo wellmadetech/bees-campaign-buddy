@@ -21,17 +21,18 @@ export const campaignTypeCodeEnum = pgEnum('campaign_type_code', [
 ]);
 
 export const campaignStatusEnum = pgEnum('campaign_status', [
-  'draft',
-  'submitted',
-  'picked_up',
   'in_progress',
-  'in_qa',
-  'feedback_needed',
-  'approved',
-  'launched',
-  'paused',
-  'cancelled',
+  'scheduled',
+  'active',
   'completed',
+  'needs_attention',
+  'cancelled',
+]);
+
+export const requestStatusEnum = pgEnum('request_status', [
+  'in_review',
+  'denied',
+  'accepted',
 ]);
 
 export const campaignTypes = pgTable('campaign_types', {
@@ -58,7 +59,7 @@ export const campaigns = pgTable('campaigns', {
     .notNull()
     .references(() => users.id),
   assignedTo: uuid('assigned_to').references(() => users.id),
-  status: campaignStatusEnum('status').default('draft').notNull(),
+  status: campaignStatusEnum('status').default('in_progress').notNull(),
   parentId: uuid('parent_id'),
   scheduledStart: timestamp('scheduled_start', { withTimezone: true }),
   scheduledEnd: timestamp('scheduled_end', { withTimezone: true }),

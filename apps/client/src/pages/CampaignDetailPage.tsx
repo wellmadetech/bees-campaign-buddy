@@ -28,23 +28,22 @@ type DetailCampaign = {
 };
 
 const MOCK_CAMPAIGNS: Record<string, DetailCampaign> = {
-  'demo-1': { id: 'demo-1', title: 'Spring Beer Promo — Bud Light', description: 'Push notification campaign to promote Bud Light spring lineup across Northeast retailers.', status: 'launched', campaignTypeCode: 'ad_hoc_sales', branchName: 'Northeast Distribution', createdByName: 'Walter Smith', createdAt: '2026-03-20T10:00:00Z', updatedAt: '2026-03-21T14:00:00Z', contentJson: { headline: 'Spring Into Savings!', body: 'Order Bud Light cases this week and get 10% off your next delivery. Limited time offer for BEES retailers.', cta: 'Order Now' }, scheduledStart: '2026-03-25T09:00:00Z', scheduledEnd: '2026-04-15T23:59:00Z', brazeCampaignId: 'brz-abc-123', brazeSegmentId: 'seg-xyz-456', brazeStatus: 'active', assignedToName: null, campaignTypeId: 'ct-1', templateId: null, branchId: 'branch-1', createdBy: 'demo-ws-001', assignedTo: null, parentId: null, creativeJson: null, productsJson: null, isDeleted: false },
+  'demo-1': { id: 'demo-1', title: 'Spring Beer Promo — Bud Light', description: 'Push notification campaign to promote Bud Light spring lineup across Northeast retailers.', status: 'active', campaignTypeCode: 'ad_hoc_sales', branchName: 'Northeast Distribution', createdByName: 'Walter Smith', createdAt: '2026-03-20T10:00:00Z', updatedAt: '2026-03-21T14:00:00Z', contentJson: { headline: 'Spring Into Savings!', body: 'Order Bud Light cases this week and get 10% off your next delivery. Limited time offer for BEES retailers.', cta: 'Order Now' }, scheduledStart: '2026-03-25T09:00:00Z', scheduledEnd: '2026-04-15T23:59:00Z', brazeCampaignId: 'brz-abc-123', brazeSegmentId: 'seg-xyz-456', brazeStatus: 'active', assignedToName: null, campaignTypeId: 'ct-1', templateId: null, branchId: 'branch-1', createdBy: 'demo-ws-001', assignedTo: null, parentId: null, creativeJson: null, productsJson: null, isDeleted: false },
   'demo-2': { id: 'demo-2', title: 'Holiday Closure Notice — Memorial Day', description: 'Operational notice for Memorial Day warehouse closure and adjusted delivery schedule.', status: 'in_progress', campaignTypeCode: 'ad_hoc_operational', branchName: 'Southeast Distribution', createdByName: 'Walter Smith', createdAt: '2026-03-19T14:30:00Z', updatedAt: '2026-03-20T09:00:00Z', contentJson: { headline: 'Memorial Day Delivery Update', body: 'Our warehouse will be closed May 26. Orders placed by May 23 will be delivered on schedule.', cta: 'View Schedule' }, scheduledStart: '2026-05-20T08:00:00Z', scheduledEnd: '2026-05-25T23:59:00Z', brazeCampaignId: null, brazeSegmentId: null, brazeStatus: null, assignedToName: 'Carmen Rodriguez', campaignTypeId: 'ct-2', templateId: null, branchId: 'branch-2', createdBy: 'demo-ws-001', assignedTo: 'demo-cc-001', parentId: null, creativeJson: null, productsJson: null, isDeleted: false },
-  'demo-3': { id: 'demo-3', title: 'New IPA Launch — Goose Island', description: 'Lifecycle campaign for the launch of Goose Island new seasonal IPA.', status: 'in_qa', campaignTypeCode: 'lifecycle', branchName: 'Northeast Distribution', createdByName: 'Dana Campbell', createdAt: '2026-03-18T09:15:00Z', updatedAt: '2026-03-19T16:00:00Z', contentJson: { headline: 'Try the New Goose Island Seasonal IPA', body: 'Introducing Goose Island Summer Haze — a refreshing new IPA perfect for the season.', cta: 'Learn More' }, scheduledStart: '2026-04-01T09:00:00Z', scheduledEnd: null, brazeCampaignId: 'brz-def-456', brazeSegmentId: 'seg-abc-789', brazeStatus: 'draft', assignedToName: 'Carmen Rodriguez', campaignTypeId: 'ct-5', templateId: null, branchId: 'branch-1', createdBy: 'demo-dc-001', assignedTo: 'demo-cc-001', parentId: 'demo-1', creativeJson: null, productsJson: null, isDeleted: false },
-  'demo-4': { id: 'demo-4', title: 'Cinco de Mayo — Corona Bundle', description: 'Sales campaign for Corona Cinco de Mayo bundle promotion.', status: 'draft', campaignTypeCode: 'ad_hoc_sales', branchName: 'West Coast Distribution', createdByName: 'Walter Smith', createdAt: '2026-03-17T16:45:00Z', updatedAt: '2026-03-17T16:45:00Z', contentJson: { headline: 'Celebrate Cinco de Mayo', body: 'Stock up on Corona Extra and Corona Light bundles — special pricing for the holiday weekend.', cta: 'Shop Bundles' }, scheduledStart: '2026-04-28T09:00:00Z', scheduledEnd: '2026-05-05T23:59:00Z', brazeCampaignId: null, brazeSegmentId: null, brazeStatus: null, assignedToName: null, campaignTypeId: 'ct-1', templateId: null, branchId: 'branch-3', createdBy: 'demo-ws-001', assignedTo: null, parentId: null, creativeJson: null, productsJson: null, isDeleted: false },
-  'demo-5': { id: 'demo-5', title: 'Delivery Reroute — I-95 Construction', description: 'Notify affected retailers about delivery reroute due to I-95 construction.', status: 'feedback_needed', campaignTypeCode: 'ad_hoc_operational', branchName: 'Northeast Distribution', createdByName: 'Dana Campbell', createdAt: '2026-03-16T11:00:00Z', updatedAt: '2026-03-18T10:00:00Z', contentJson: { headline: 'Delivery Route Update', body: 'Due to I-95 construction, deliveries in the Hartford area may be delayed by 1-2 hours starting March 25.', cta: 'Check My Route' }, scheduledStart: '2026-03-24T06:00:00Z', scheduledEnd: null, brazeCampaignId: null, brazeSegmentId: null, brazeStatus: null, assignedToName: null, campaignTypeId: 'ct-2', templateId: null, branchId: 'branch-1', createdBy: 'demo-dc-001', assignedTo: null, parentId: null, creativeJson: null, productsJson: null, isDeleted: false },
+  'demo-3': { id: 'demo-3', title: 'New IPA Launch — Goose Island', description: 'Lifecycle campaign for the launch of Goose Island new seasonal IPA.', status: 'scheduled', campaignTypeCode: 'lifecycle', branchName: 'Northeast Distribution', createdByName: 'Dana Campbell', createdAt: '2026-03-18T09:15:00Z', updatedAt: '2026-03-19T16:00:00Z', contentJson: { headline: 'Try the New Goose Island Seasonal IPA', body: 'Introducing Goose Island Summer Haze — a refreshing new IPA perfect for the season.', cta: 'Learn More' }, scheduledStart: '2026-04-01T09:00:00Z', scheduledEnd: null, brazeCampaignId: 'brz-def-456', brazeSegmentId: 'seg-abc-789', brazeStatus: 'draft', assignedToName: 'Carmen Rodriguez', campaignTypeId: 'ct-5', templateId: null, branchId: 'branch-1', createdBy: 'demo-dc-001', assignedTo: 'demo-cc-001', parentId: 'demo-1', creativeJson: null, productsJson: null, isDeleted: false },
+  'demo-4': { id: 'demo-4', title: 'Cinco de Mayo — Corona Bundle', description: 'Sales campaign for Corona Cinco de Mayo bundle promotion.', status: 'in_progress', campaignTypeCode: 'ad_hoc_sales', branchName: 'West Coast Distribution', createdByName: 'Walter Smith', createdAt: '2026-03-17T16:45:00Z', updatedAt: '2026-03-17T16:45:00Z', contentJson: { headline: 'Celebrate Cinco de Mayo', body: 'Stock up on Corona Extra and Corona Light bundles — special pricing for the holiday weekend.', cta: 'Shop Bundles' }, scheduledStart: '2026-04-28T09:00:00Z', scheduledEnd: '2026-05-05T23:59:00Z', brazeCampaignId: null, brazeSegmentId: null, brazeStatus: null, assignedToName: null, campaignTypeId: 'ct-1', templateId: null, branchId: 'branch-3', createdBy: 'demo-ws-001', assignedTo: null, parentId: null, creativeJson: null, productsJson: null, isDeleted: false },
+  'demo-5': { id: 'demo-5', title: 'Delivery Reroute — I-95 Construction', description: 'Notify affected retailers about delivery reroute due to I-95 construction.', status: 'needs_attention', campaignTypeCode: 'ad_hoc_operational', branchName: 'Northeast Distribution', createdByName: 'Dana Campbell', createdAt: '2026-03-16T11:00:00Z', updatedAt: '2026-03-18T10:00:00Z', contentJson: { headline: 'Delivery Route Update', body: 'Due to I-95 construction, deliveries in the Hartford area may be delayed by 1-2 hours starting March 25.', cta: 'Check My Route' }, scheduledStart: '2026-03-24T06:00:00Z', scheduledEnd: null, brazeCampaignId: null, brazeSegmentId: null, brazeStatus: null, assignedToName: null, campaignTypeId: 'ct-2', templateId: null, branchId: 'branch-1', createdBy: 'demo-dc-001', assignedTo: null, parentId: null, creativeJson: null, productsJson: null, isDeleted: false },
 };
 
 const MOCK_HISTORY = [
-  { id: 'h-1', toStatus: 'draft' as CampaignStatus, changedByName: 'Walter Smith', createdAt: '2026-03-20T10:00:00Z', notes: null },
-  { id: 'h-2', toStatus: 'submitted' as CampaignStatus, changedByName: 'Walter Smith', createdAt: '2026-03-20T10:05:00Z', notes: 'Campaign submitted for processing' },
-  { id: 'h-3', toStatus: 'picked_up' as CampaignStatus, changedByName: 'Dana Campbell', createdAt: '2026-03-20T14:30:00Z', notes: null },
-  { id: 'h-4', toStatus: 'in_progress' as CampaignStatus, changedByName: 'Carmen Rodriguez', createdAt: '2026-03-21T09:00:00Z', notes: 'Working on creative' },
-  { id: 'h-5', toStatus: 'launched' as CampaignStatus, changedByName: 'Dana Campbell', createdAt: '2026-03-21T14:00:00Z', notes: 'Approved and launched in Braze' },
+  { id: 'h-1', toStatus: 'in_progress' as CampaignStatus, changedByName: 'Walter Smith', createdAt: '2026-03-20T10:00:00Z', notes: 'Request accepted' },
+  { id: 'h-2', toStatus: 'in_progress' as CampaignStatus, changedByName: 'Dana Campbell', createdAt: '2026-03-20T14:30:00Z', notes: 'Assigned to Carmen Rodriguez' },
+  { id: 'h-3', toStatus: 'scheduled' as CampaignStatus, changedByName: 'Carmen Rodriguez', createdAt: '2026-03-21T09:00:00Z', notes: 'Content ready, campaign scheduled' },
+  { id: 'h-4', toStatus: 'active' as CampaignStatus, changedByName: 'System', createdAt: '2026-03-25T09:00:00Z', notes: 'Campaign went live via Braze' },
 ];
 
 const MOCK_CHILDREN: { id: string; title: string; status: CampaignStatus; branchName: string }[] = [
-  { id: 'demo-3', title: 'New IPA Launch — Goose Island', status: 'in_qa', branchName: 'Northeast Distribution' },
+  { id: 'demo-3', title: 'New IPA Launch — Goose Island', status: 'scheduled', branchName: 'Northeast Distribution' },
 ];
 
 const MOCK_BRANCHES = [
@@ -114,9 +113,9 @@ export function CampaignDetailPage() {
   }
 
   const allowedTransitions = ALLOWED_TRANSITIONS[campaign.status as CampaignStatus] ?? [];
-  const canEdit = campaign.status === 'draft' || campaign.status === 'feedback_needed';
-  const isPaused = campaign.status === 'paused';
-  const isLaunched = campaign.status === 'launched';
+  const canEdit = campaign.status === 'in_progress' || campaign.status === 'needs_attention';
+  const isActive = campaign.status === 'active';
+  const channel = 'Push'; // Demo — would come from campaign data
   const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   const fmtDateTime = (d: string) => new Date(d).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
 
@@ -180,7 +179,9 @@ export function CampaignDetailPage() {
             <h2 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-4">Details</h2>
             <div className="grid grid-cols-2 gap-x-6 gap-y-4">
               {([
-                ['Branch', campaign.branchName],
+                ['Campaign Type', CAMPAIGN_TYPE_LABELS[campaign.campaignTypeCode as CampaignTypeCode]],
+                ['Channel', channel],
+                ['Wholesaler', campaign.branchName],
                 ['Created by', campaign.createdByName],
                 campaign.assignedToName ? ['Assigned to', campaign.assignedToName] : null,
                 ['Created', fmtDate(campaign.createdAt)],
@@ -229,6 +230,28 @@ export function CampaignDetailPage() {
             </div>
           )}
 
+          {/* Content Version History */}
+          {campaign.contentJson && (
+            <div className="card p-5">
+              <h2 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-4">Content Version History</h2>
+              <div className="space-y-3">
+                {[
+                  { version: 'v3 (Current)', author: 'Carmen Rodriguez', date: 'Mar 21, 2:00 PM', change: 'Updated CTA from "Learn More" to "Order Now"' },
+                  { version: 'v2', author: 'Carmen Rodriguez', date: 'Mar 21, 10:30 AM', change: 'Revised body copy — shortened for push notification' },
+                  { version: 'v1', author: 'Walter Smith', date: 'Mar 20, 10:00 AM', change: 'Initial content submitted' },
+                ].map((v) => (
+                  <div key={v.version} className="flex items-start gap-3 p-3 rounded-lg border border-surface-100 hover:bg-surface-50 transition-colors">
+                    <span className={`badge text-[10px] shrink-0 ${v.version.includes('Current') ? 'badge-success' : 'badge-default'}`}>{v.version}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm text-surface-700">{v.change}</div>
+                      <div className="text-[11px] text-surface-400 mt-0.5">{v.author} &middot; {v.date}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Approval Review */}
           <ApprovalReview
             campaignTitle={campaign.title}
@@ -273,41 +296,25 @@ export function CampaignDetailPage() {
 
         {/* Sidebar */}
         <div className="space-y-5">
-          {/* Quick Actions */}
-          {(allowedTransitions.length > 0 || isLaunched || isPaused) && (
+          {/* Actions */}
+          {campaign.status !== 'completed' && campaign.status !== 'cancelled' && (
             <div className="card p-4">
               <h3 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-3">Actions</h3>
               <div className="space-y-2">
-                {/* Pause/Resume shortcuts */}
-                {isLaunched && (
+                {isActive && (
                   <button
-                    onClick={() => !isDemo && transitionMutation.mutate('paused')}
+                    onClick={() => !isDemo && transitionMutation.mutate('needs_attention')}
                     className="w-full flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-warn-600 bg-warn-50 border border-warn-500/20 rounded-lg hover:bg-warn-50/80 transition-all"
                   >
                     <Pause className="w-4 h-4" /> Pause Campaign
                   </button>
                 )}
-                {isPaused && (
-                  <button
-                    onClick={() => !isDemo && transitionMutation.mutate('launched')}
-                    className="w-full flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-success-600 bg-success-50 border border-success-500/20 rounded-lg hover:bg-success-50/80 transition-all"
-                  >
-                    <Play className="w-4 h-4" /> Resume Campaign
-                  </button>
-                )}
-                {/* Other transitions */}
-                {allowedTransitions
-                  .filter((s) => !(isLaunched && s === 'paused') && !(isPaused && s === 'launched'))
-                  .map((status) => (
-                    <button
-                      key={status}
-                      onClick={() => !isDemo && transitionMutation.mutate(status)}
-                      disabled={transitionMutation.isPending}
-                      className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-surface-700 border border-surface-200 rounded-lg hover:bg-surface-50 hover:border-surface-300 transition-all duration-150 disabled:opacity-50"
-                    >
-                      {STATUS_LABELS[status]} <ArrowRight className="w-3.5 h-3.5 text-surface-400" />
-                    </button>
-                  ))}
+                <button
+                  onClick={() => !isDemo && transitionMutation.mutate('cancelled')}
+                  className="w-full flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-danger-600 bg-danger-50 border border-danger-200/50 rounded-lg hover:bg-danger-50/80 transition-all"
+                >
+                  <X className="w-4 h-4" /> Cancel Campaign
+                </button>
               </div>
             </div>
           )}

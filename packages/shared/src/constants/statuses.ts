@@ -1,45 +1,46 @@
+// Campaign Request statuses (before acceptance)
+export const RequestStatus = {
+  IN_REVIEW: 'in_review',
+  DENIED: 'denied',
+  ACCEPTED: 'accepted',
+} as const;
+
+export type RequestStatus = (typeof RequestStatus)[keyof typeof RequestStatus];
+
+export const REQUEST_STATUS_LABELS: Record<RequestStatus, string> = {
+  in_review: 'In Review',
+  denied: 'Denied',
+  accepted: 'Accepted',
+};
+
+// Campaign statuses (after acceptance)
 export const CampaignStatus = {
-  DRAFT: 'draft',
-  SUBMITTED: 'submitted',
-  PICKED_UP: 'picked_up',
   IN_PROGRESS: 'in_progress',
-  IN_QA: 'in_qa',
-  FEEDBACK_NEEDED: 'feedback_needed',
-  APPROVED: 'approved',
-  LAUNCHED: 'launched',
-  PAUSED: 'paused',
-  CANCELLED: 'cancelled',
+  SCHEDULED: 'scheduled',
+  ACTIVE: 'active',
   COMPLETED: 'completed',
+  NEEDS_ATTENTION: 'needs_attention',
+  CANCELLED: 'cancelled',
 } as const;
 
 export type CampaignStatus = (typeof CampaignStatus)[keyof typeof CampaignStatus];
 
 export const STATUS_LABELS: Record<CampaignStatus, string> = {
-  draft: 'Draft',
-  submitted: 'Submitted',
-  picked_up: 'Picked Up',
   in_progress: 'In Progress',
-  in_qa: 'In QA',
-  feedback_needed: 'Feedback Needed',
-  approved: 'Approved',
-  launched: 'Launched',
-  paused: 'Paused',
-  cancelled: 'Cancelled',
+  scheduled: 'Scheduled',
+  active: 'Active',
   completed: 'Completed',
+  needs_attention: 'Needs Attention',
+  cancelled: 'Cancelled',
 };
 
 export const ALLOWED_TRANSITIONS: Record<CampaignStatus, CampaignStatus[]> = {
-  draft: ['submitted', 'cancelled'],
-  submitted: ['picked_up', 'cancelled'],
-  picked_up: ['in_progress', 'cancelled'],
-  in_progress: ['in_qa', 'feedback_needed', 'cancelled'],
-  in_qa: ['approved', 'feedback_needed', 'cancelled'],
-  feedback_needed: ['in_progress', 'cancelled'],
-  approved: ['launched', 'cancelled'],
-  launched: ['paused', 'completed'],
-  paused: ['launched', 'cancelled'],
-  cancelled: [],
+  in_progress: ['scheduled', 'needs_attention', 'cancelled'],
+  scheduled: ['active', 'needs_attention', 'cancelled'],
+  active: ['completed', 'needs_attention', 'cancelled'],
   completed: [],
+  needs_attention: ['in_progress', 'cancelled'],
+  cancelled: [],
 };
 
 export const OrchestrationStep = {

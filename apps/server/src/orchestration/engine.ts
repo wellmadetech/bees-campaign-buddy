@@ -69,16 +69,16 @@ export async function runOrchestration(campaignId: string, userId?: string): Pro
 
       console.error(`[Orchestration] Step ${step.name} failed: ${errorMessage}`);
 
-      // Transition campaign to feedback_needed
+      // Transition campaign to needs_attention
       await db
         .update(campaigns)
-        .set({ status: 'feedback_needed', updatedAt: new Date() })
+        .set({ status: 'needs_attention', updatedAt: new Date() })
         .where(eq(campaigns.id, campaignId));
 
       await db.insert(campaignStatusHistory).values({
         campaignId,
-        fromStatus: 'submitted',
-        toStatus: 'feedback_needed',
+        fromStatus: 'in_progress',
+        toStatus: 'needs_attention',
         changedBy: userId,
         notes: `Orchestration failed at step "${step.name}": ${errorMessage}`,
       });
@@ -87,16 +87,16 @@ export async function runOrchestration(campaignId: string, userId?: string): Pro
     }
   }
 
-  // All steps passed — transition to in_progress
+  // All steps passed — transition to scheduled
   await db
     .update(campaigns)
-    .set({ status: 'in_progress', updatedAt: new Date() })
+    .set({ status: 'scheduled', updatedAt: new Date() })
     .where(eq(campaigns.id, campaignId));
 
   await db.insert(campaignStatusHistory).values({
     campaignId,
-    fromStatus: 'submitted',
-    toStatus: 'in_progress',
+    fromStatus: 'in_progress',
+    toStatus: 'scheduled',
     changedBy: userId,
     notes: 'Orchestration pipeline completed — campaign ready for content review',
   });
