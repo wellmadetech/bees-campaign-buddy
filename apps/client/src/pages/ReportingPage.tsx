@@ -167,15 +167,50 @@ function OrgReporting() {
 }
 
 function WholesalerReporting() {
+  const CHANNEL_PERF = [
+    { channel: 'Push Notification', sent: 12480, openRate: 41.2, ctr: 14.8, revenue: 52300, benchmark: { openRate: 35, ctr: 11 } },
+    { channel: 'Email', sent: 6200, openRate: 44.1, ctr: 18.2, revenue: 31200, benchmark: { openRate: 38, ctr: 14 } },
+    { channel: 'SMS / MMS', sent: 1850, openRate: 92.4, ctr: 22.1, revenue: 8750, benchmark: { openRate: 85, ctr: 18 } },
+    { channel: 'WhatsApp', sent: 1050, openRate: 88.6, ctr: 26.3, revenue: 4200, benchmark: { openRate: 80, ctr: 20 } },
+  ];
+
+  const BRAND_PERF = [
+    { brand: 'Bud Light', campaigns: 5, revenue: 28450, orders: 187, growth: 12.4 },
+    { brand: 'Corona', campaigns: 4, revenue: 22100, orders: 145, growth: 18.7 },
+    { brand: 'Michelob Ultra', campaigns: 3, revenue: 19200, orders: 142, growth: 8.2 },
+    { brand: 'Stella Artois', campaigns: 2, revenue: 12800, orders: 89, growth: -3.1 },
+    { brand: 'Goose Island', campaigns: 2, revenue: 7200, orders: 52, growth: 24.6 },
+  ];
+
+  const MONTHLY_PERF = [
+    { month: 'Oct', revenue: 14200, campaigns: 3, openRate: 38.1 },
+    { month: 'Nov', revenue: 18500, campaigns: 4, openRate: 39.4 },
+    { month: 'Dec', revenue: 12800, campaigns: 2, openRate: 36.8 },
+    { month: 'Jan', revenue: 22400, campaigns: 5, openRate: 41.2 },
+    { month: 'Feb', revenue: 26300, campaigns: 6, openRate: 42.8 },
+    { month: 'Mar', revenue: 31200, campaigns: 7, openRate: 44.1 },
+  ];
+
+  const ROI_DATA = {
+    totalSpend: 4200,
+    totalRevenue: 89750,
+    roi: 2036,
+    costPerOrder: 1.15,
+    revenuePerCampaign: 7479,
+  };
+
+  const maxMonthRevenue = Math.max(...MONTHLY_PERF.map((m) => m.revenue));
+  const maxBrandRevenue = Math.max(...BRAND_PERF.map((b) => b.revenue));
+
   return (
     <>
-      {/* Personal KPIs */}
+      {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
         {[
-          { label: 'Total Sent', value: formatNum(MY_TOTALS.totalSent), icon: Send, style: 'text-info-600 bg-info-50' },
-          { label: 'Avg. Open Rate', value: `${MY_TOTALS.avgOpenRate}%`, icon: Eye, style: 'text-brand-600 bg-brand-100' },
-          { label: 'Avg. CTR', value: `${MY_TOTALS.avgCtr}%`, icon: MousePointer, style: 'text-success-600 bg-success-50' },
-          { label: 'Est. Revenue', value: `$${(MY_TOTALS.totalRevenue / 1000).toFixed(1)}k`, icon: TrendingUp, style: 'text-surface-600 bg-surface-100' },
+          { label: 'Total Sent', value: formatNum(MY_TOTALS.totalSent), icon: Send, style: 'text-info-600 bg-info-50', sub: `${MY_CAMPAIGNS_PERFORMANCE.length} campaigns` },
+          { label: 'Avg. Open Rate', value: `${MY_TOTALS.avgOpenRate}%`, icon: Eye, style: 'text-brand-600 bg-brand-100', sub: 'Benchmark: 35%' },
+          { label: 'Avg. CTR', value: `${MY_TOTALS.avgCtr}%`, icon: MousePointer, style: 'text-success-600 bg-success-50', sub: 'Benchmark: 11%' },
+          { label: 'Est. Revenue', value: `$${(MY_TOTALS.totalRevenue / 1000).toFixed(1)}k`, icon: TrendingUp, style: 'text-surface-600 bg-surface-100', sub: `${ROI_DATA.roi}% ROI` },
         ].map((s) => (
           <div key={s.label} className="card px-5 py-4">
             <div className="flex items-center justify-between mb-3">
@@ -185,79 +220,186 @@ function WholesalerReporting() {
               </div>
             </div>
             <div className="text-2xl font-semibold text-surface-900 tabular-nums">{s.value}</div>
+            <div className="text-[11px] text-surface-400 mt-0.5">{s.sub}</div>
           </div>
         ))}
       </div>
 
+      {/* ROI Card */}
+      <div className="card p-5 mb-5">
+        <h2 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-4">Return on Investment</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {[
+            { label: 'Campaign Spend', value: `$${ROI_DATA.totalSpend.toLocaleString()}` },
+            { label: 'Revenue Generated', value: `$${ROI_DATA.totalRevenue.toLocaleString()}` },
+            { label: 'ROI', value: `${ROI_DATA.roi}%`, highlight: true },
+            { label: 'Cost per Order', value: `$${ROI_DATA.costPerOrder}` },
+          ].map((m) => (
+            <div key={m.label} className="text-center p-3 bg-surface-50 rounded-lg">
+              <div className={`text-xl font-semibold tabular-nums ${m.highlight ? 'text-success-600' : 'text-surface-900'}`}>{m.value}</div>
+              <div className="text-[11px] text-surface-400 mt-0.5">{m.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+        {/* Monthly Revenue Trend */}
+        <div className="card p-5">
+          <h2 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-4">Monthly Revenue</h2>
+          <div className="flex items-end gap-3 h-36">
+            {MONTHLY_PERF.map((m) => (
+              <div key={m.month} className="flex-1 flex flex-col items-center gap-1.5">
+                <span className="text-[10px] font-medium text-surface-900 tabular-nums">${(m.revenue / 1000).toFixed(0)}k</span>
+                <div className="w-full bg-success-400 rounded-t-md" style={{ height: `${(m.revenue / maxMonthRevenue) * 100}%`, minHeight: 8 }} />
+                <span className="text-[10px] text-surface-400">{m.month}</span>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center gap-1 mt-3 justify-center">
+            <ArrowUpRight className="w-3 h-3 text-success-600" />
+            <span className="text-xs text-success-600 font-medium">+18.6% revenue growth over 6 months</span>
+          </div>
+        </div>
+
+        {/* Channel Performance vs Benchmark */}
+        <div className="card p-5">
+          <h2 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-4">Channel Performance vs Benchmark</h2>
+          <div className="space-y-4">
+            {CHANNEL_PERF.map((ch) => {
+              const openDiff = ch.openRate - ch.benchmark.openRate;
+              const ctrDiff = ch.ctr - ch.benchmark.ctr;
+              return (
+                <div key={ch.channel}>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-sm font-medium text-surface-700">{ch.channel}</span>
+                    <span className="text-xs text-surface-400 tabular-nums">{formatNum(ch.sent)} sent</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="flex items-center justify-between bg-surface-50 rounded-lg px-3 py-1.5">
+                      <span className="text-[11px] text-surface-400">Open</span>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-xs font-semibold text-surface-900 tabular-nums">{ch.openRate}%</span>
+                        <span className={`text-[10px] font-medium ${openDiff >= 0 ? 'text-success-600' : 'text-danger-600'}`}>
+                          {openDiff >= 0 ? '+' : ''}{openDiff.toFixed(1)}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between bg-surface-50 rounded-lg px-3 py-1.5">
+                      <span className="text-[11px] text-surface-400">CTR</span>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-xs font-semibold text-surface-900 tabular-nums">{ch.ctr}%</span>
+                        <span className={`text-[10px] font-medium ${ctrDiff >= 0 ? 'text-success-600' : 'text-danger-600'}`}>
+                          {ctrDiff >= 0 ? '+' : ''}{ctrDiff.toFixed(1)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Brand / Product Performance */}
+      <div className="card p-5 mb-5">
+        <h2 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-4">Brand Performance</h2>
+        <div className="space-y-3">
+          {BRAND_PERF.map((b, i) => (
+            <div key={b.brand} className="flex items-center gap-4">
+              <span className="text-[11px] font-bold text-brand-500 tabular-nums w-5">#{i + 1}</span>
+              <div className="flex-1">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-sm font-medium text-surface-900">{b.brand}</span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs text-surface-400 tabular-nums">{b.campaigns} campaigns</span>
+                    <span className="text-xs text-surface-400 tabular-nums">{b.orders} orders</span>
+                    <span className="text-sm font-semibold text-surface-900 tabular-nums w-20 text-right">${b.revenue.toLocaleString()}</span>
+                    <span className={`text-[11px] font-medium w-12 text-right ${b.growth >= 0 ? 'text-success-600' : 'text-danger-600'}`}>
+                      {b.growth >= 0 ? '+' : ''}{b.growth}%
+                    </span>
+                  </div>
+                </div>
+                <div className="h-1.5 bg-surface-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-brand-500 rounded-full" style={{ width: `${(b.revenue / maxBrandRevenue) * 100}%` }} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Campaign performance table */}
-      <div className="card overflow-x-auto">
+      <div className="card overflow-x-auto mb-5">
         <div className="px-5 py-4 border-b border-surface-100">
           <h2 className="text-[15px] font-semibold text-surface-900">Campaign Performance</h2>
           <p className="text-xs text-surface-400 mt-0.5">Delivery and engagement metrics for your launched campaigns</p>
         </div>
-        <table className="w-full">
+        <table className="w-full min-w-[700px]">
           <thead>
             <tr className="border-b border-surface-100">
               <th className="text-left px-5 py-3 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">Campaign</th>
               <th className="text-right px-5 py-3 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">Sent</th>
-              <th className="text-right px-5 py-3 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">Delivered</th>
               <th className="text-right px-5 py-3 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">Open Rate</th>
               <th className="text-right px-5 py-3 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">CTR</th>
               <th className="text-right px-5 py-3 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">Clicks</th>
               <th className="text-right px-5 py-3 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">Revenue</th>
+              <th className="text-right px-5 py-3 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">ROI</th>
             </tr>
           </thead>
           <tbody>
-            {MY_CAMPAIGNS_PERFORMANCE.map((c, i) => (
-              <tr key={c.id} className={`hover:bg-surface-50 transition-colors ${i < MY_CAMPAIGNS_PERFORMANCE.length - 1 ? 'border-b border-surface-100/60' : ''}`}>
-                <td className="px-5 py-3.5">
-                  <div className="flex items-center gap-2">
-                    <span className={`badge text-[10px] ${getStatusStyle(c.status)}`}>{STATUS_LABELS[c.status]}</span>
-                    <span className="text-sm font-medium text-surface-900">{c.title}</span>
-                  </div>
-                </td>
-                <td className="px-5 py-3.5 text-sm text-surface-600 text-right tabular-nums">{c.sent.toLocaleString()}</td>
-                <td className="px-5 py-3.5 text-sm text-surface-600 text-right tabular-nums">{c.delivered.toLocaleString()}</td>
-                <td className="px-5 py-3.5 text-right">
-                  <span className={`text-sm font-medium tabular-nums ${c.openRate >= 40 ? 'text-success-600' : c.openRate >= 30 ? 'text-brand-600' : 'text-surface-600'}`}>
-                    {c.openRate}%
-                  </span>
-                </td>
-                <td className="px-5 py-3.5 text-right">
-                  <span className={`text-sm font-medium tabular-nums ${c.ctr >= 15 ? 'text-success-600' : c.ctr >= 10 ? 'text-brand-600' : 'text-surface-600'}`}>
-                    {c.ctr}%
-                  </span>
-                </td>
-                <td className="px-5 py-3.5 text-sm text-surface-600 text-right tabular-nums">{c.clicked.toLocaleString()}</td>
-                <td className="px-5 py-3.5 text-sm font-medium text-surface-900 text-right tabular-nums">
-                  {c.revenue > 0 ? `$${c.revenue.toLocaleString()}` : '—'}
-                </td>
-              </tr>
-            ))}
+            {MY_CAMPAIGNS_PERFORMANCE.map((c, i) => {
+              const campaignRoi = c.revenue > 0 ? Math.round((c.revenue / 350) * 100) : 0;
+              return (
+                <tr key={c.id} className={`hover:bg-surface-50 transition-colors ${i < MY_CAMPAIGNS_PERFORMANCE.length - 1 ? 'border-b border-surface-100/60' : ''}`}>
+                  <td className="px-5 py-3.5">
+                    <div className="flex items-center gap-2">
+                      <span className={`badge text-[10px] ${getStatusStyle(c.status)}`}>{STATUS_LABELS[c.status]}</span>
+                      <span className="text-sm font-medium text-surface-900">{c.title}</span>
+                    </div>
+                  </td>
+                  <td className="px-5 py-3.5 text-sm text-surface-600 text-right tabular-nums">{c.sent.toLocaleString()}</td>
+                  <td className="px-5 py-3.5 text-right">
+                    <span className={`text-sm font-medium tabular-nums ${c.openRate >= 40 ? 'text-success-600' : c.openRate >= 30 ? 'text-brand-600' : 'text-surface-600'}`}>{c.openRate}%</span>
+                  </td>
+                  <td className="px-5 py-3.5 text-right">
+                    <span className={`text-sm font-medium tabular-nums ${c.ctr >= 15 ? 'text-success-600' : c.ctr >= 10 ? 'text-brand-600' : 'text-surface-600'}`}>{c.ctr}%</span>
+                  </td>
+                  <td className="px-5 py-3.5 text-sm text-surface-600 text-right tabular-nums">{c.clicked.toLocaleString()}</td>
+                  <td className="px-5 py-3.5 text-sm font-medium text-surface-900 text-right tabular-nums">{c.revenue > 0 ? `$${c.revenue.toLocaleString()}` : '—'}</td>
+                  <td className="px-5 py-3.5 text-right">
+                    {campaignRoi > 0 && <span className="text-sm font-medium text-success-600 tabular-nums">{campaignRoi}%</span>}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
-          <tfoot>
-            <tr className="border-t border-surface-200 bg-surface-50">
-              <td className="px-5 py-3 text-sm font-semibold text-surface-900">Totals</td>
-              <td className="px-5 py-3 text-sm font-semibold text-surface-900 text-right tabular-nums">{MY_TOTALS.totalSent.toLocaleString()}</td>
-              <td className="px-5 py-3 text-sm font-semibold text-surface-900 text-right tabular-nums">{MY_TOTALS.totalDelivered.toLocaleString()}</td>
-              <td className="px-5 py-3 text-sm font-semibold text-success-600 text-right tabular-nums">{MY_TOTALS.avgOpenRate}%</td>
-              <td className="px-5 py-3 text-sm font-semibold text-success-600 text-right tabular-nums">{MY_TOTALS.avgCtr}%</td>
-              <td className="px-5 py-3 text-sm font-semibold text-surface-900 text-right tabular-nums">{MY_TOTALS.totalClicked.toLocaleString()}</td>
-              <td className="px-5 py-3 text-sm font-semibold text-surface-900 text-right tabular-nums">${MY_TOTALS.totalRevenue.toLocaleString()}</td>
-            </tr>
-          </tfoot>
         </table>
       </div>
 
-      {/* Performance tips */}
-      <div className="card p-5 mt-5">
-        <div className="flex items-start gap-3">
-          <div className="w-8 h-8 rounded-lg bg-brand-100 flex items-center justify-center shrink-0">
-            <ArrowUpRight className="w-4 h-4 text-brand-600" />
+      {/* Performance insights */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="card p-5">
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-lg bg-success-50 flex items-center justify-center shrink-0">
+              <ArrowUpRight className="w-4 h-4 text-success-600" />
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-surface-900 mb-1">Top Performer</h3>
+              <p className="text-sm text-surface-500">BEES Rewards Launch has your highest CTR at 18% — 63% above the platform benchmark. Consider replicating this format.</p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-sm font-semibold text-surface-900 mb-1">Performance Insight</h3>
-            <p className="text-sm text-surface-500">Your BEES Rewards Launch campaign has the highest engagement at 18% CTR — consider duplicating this format for upcoming promotions.</p>
+        </div>
+        <div className="card p-5">
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-lg bg-info-50 flex items-center justify-center shrink-0">
+              <Send className="w-4 h-4 text-info-600" />
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-surface-900 mb-1">Channel Opportunity</h3>
+              <p className="text-sm text-surface-500">Your SMS campaigns have a 92.4% open rate. Try moving more operational notices to SMS for higher visibility.</p>
+            </div>
           </div>
         </div>
       </div>
