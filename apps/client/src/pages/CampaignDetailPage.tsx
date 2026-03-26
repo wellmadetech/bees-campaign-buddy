@@ -214,6 +214,28 @@ export function CampaignDetailPage() {
             )}
           </div>
 
+          {/* Performance Stats — active/completed campaigns only */}
+          {(campaign.status === 'active' || campaign.status === 'completed') && (
+            <div className="card p-5">
+              <h2 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-4">Performance</h2>
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  { label: 'Sent', value: '4,820' },
+                  { label: 'Open Rate', value: '39.8%', good: true },
+                  { label: 'CTR', value: '13.5%', good: true },
+                  { label: 'Clicks', value: '643' },
+                  { label: 'Revenue', value: '$28,450' },
+                  { label: 'ROI', value: '8,029%', good: true },
+                ].map((m) => (
+                  <div key={m.label} className="text-center py-2">
+                    <div className={`text-lg font-semibold tabular-nums ${m.good ? 'text-success-600' : 'text-surface-900'}`}>{m.value}</div>
+                    <div className="text-[11px] text-surface-400">{m.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Content Preview */}
           {campaign.contentJson && (
             <div className="card overflow-hidden">
