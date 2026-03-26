@@ -2,7 +2,35 @@ import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { listCampaigns } from '../api/campaigns';
 import { useAuthStore } from '../store/authStore';
+import { useState } from 'react';
 import { Plus, Megaphone, Clock, Zap, AlertTriangle, DollarSign, TrendingUp, ShoppingCart, BarChart3 } from 'lucide-react';
+
+type TimePeriod = 'week' | 'month' | 'quarter' | 'year';
+
+const REVENUE_BY_PERIOD: Record<TimePeriod, { digitalNetRevenue: number; revenueGrowth: number; avgOrderValue: number; aovGrowth: number; totalOrders: number; ordersGrowth: number; conversionRate: number; conversionGrowth: number }> = {
+  week: { digitalNetRevenue: 352500, revenueGrowth: 8.1, avgOrderValue: 358, aovGrowth: 3.4, totalOrders: 984, ordersGrowth: 5.2, conversionRate: 5.1, conversionGrowth: 0.3 },
+  month: { digitalNetRevenue: 1247500, revenueGrowth: 18.3, avgOrderValue: 342, aovGrowth: 7.2, totalOrders: 3648, ordersGrowth: 12.1, conversionRate: 4.8, conversionGrowth: 0.6 },
+  quarter: { digitalNetRevenue: 3420000, revenueGrowth: 22.6, avgOrderValue: 338, aovGrowth: 5.8, totalOrders: 10118, ordersGrowth: 15.4, conversionRate: 4.6, conversionGrowth: 0.8 },
+  year: { digitalNetRevenue: 12840000, revenueGrowth: 31.2, avgOrderValue: 329, aovGrowth: 4.1, totalOrders: 39027, ordersGrowth: 24.8, conversionRate: 4.3, conversionGrowth: 1.2 },
+};
+
+const CHART_BY_PERIOD: Record<TimePeriod, { label: string; revenue: number }[]> = {
+  week: [
+    { label: 'Mon', revenue: 48200 }, { label: 'Tue', revenue: 52100 }, { label: 'Wed', revenue: 45800 },
+    { label: 'Thu', revenue: 58400 }, { label: 'Fri', revenue: 62300 }, { label: 'Sat', revenue: 42500 }, { label: 'Sun', revenue: 43200 },
+  ],
+  month: [
+    { label: 'W1', revenue: 285000 }, { label: 'W2', revenue: 312000 }, { label: 'W3', revenue: 298000 }, { label: 'W4', revenue: 352500 },
+  ],
+  quarter: [
+    { label: 'Jan', revenue: 1020000 }, { label: 'Feb', revenue: 1150000 }, { label: 'Mar', revenue: 1250000 },
+  ],
+  year: [
+    { label: 'Q1', revenue: 2890000 }, { label: 'Q2', revenue: 3120000 }, { label: 'Q3', revenue: 3340000 }, { label: 'Q4', revenue: 3490000 },
+  ],
+};
+
+const PERIOD_LABELS: Record<TimePeriod, string> = { week: 'This Week', month: 'This Month', quarter: 'This Quarter', year: 'This Year' };
 
 const MOCK_CAMPAIGNS = [
   { id: 'demo-1', status: 'active' },
@@ -13,24 +41,6 @@ const MOCK_CAMPAIGNS = [
   { id: 'demo-6', status: 'active' },
   { id: 'demo-7', status: 'completed' },
   { id: 'demo-8', status: 'scheduled' },
-];
-
-const REVENUE_METRICS = {
-  digitalNetRevenue: 1247500,
-  revenueGrowth: 18.3,
-  avgOrderValue: 342,
-  aovGrowth: 7.2,
-  totalOrders: 3648,
-  ordersGrowth: 12.1,
-  conversionRate: 4.8,
-  conversionGrowth: 0.6,
-};
-
-const WEEKLY_REVENUE = [
-  { week: 'W1', revenue: 285000 },
-  { week: 'W2', revenue: 312000 },
-  { week: 'W3', revenue: 298000 },
-  { week: 'W4', revenue: 352500 },
 ];
 
 const TOP_CAMPAIGNS_BY_REVENUE = [
@@ -60,15 +70,26 @@ export function DashboardPage() {
     {},
   );
 
-  const stats = [
-    { label: 'Total', value: campaigns.length, icon: Megaphone, style: 'text-info-600 bg-info-50' },
-    { label: 'Work In Progress', value: (statusCounts['in_progress'] ?? 0) + (statusCounts['scheduled'] ?? 0), icon: Clock, style: 'text-brand-600 bg-brand-100' },
-    { label: 'Active', value: statusCounts['active'] ?? 0, icon: Zap, style: 'text-success-600 bg-success-50' },
-    { label: 'Needs Attention', value: statusCounts['needs_attention'] ?? 0, icon: AlertTriangle, style: 'text-danger-600 bg-danger-50' },
-  ];
+  const [period, setPeriod] = useState<TimePeriod>('month');
 
+  const STATS_BY_PERIOD: Record<TimePeriod, { total: number; wip: number; active: number; attention: number }> = {
+    week: { total: 3, wip: 1, active: 2, attention: 0 },
+    month: { total: 8, wip: 4, active: 2, attention: 1 },
+    quarter: { total: 24, wip: 8, active: 7, attention: 3 },
+    year: { total: 142, wip: 12, active: 18, attention: 5 },
+  };
+  const ps = isDemo ? STATS_BY_PERIOD[period] : { total: campaigns.length, wip: (statusCounts['in_progress'] ?? 0) + (statusCounts['scheduled'] ?? 0), active: statusCounts['active'] ?? 0, attention: statusCounts['needs_attention'] ?? 0 };
+
+  const stats = [
+    { label: 'Total', value: ps.total, icon: Megaphone, style: 'text-info-600 bg-info-50' },
+    { label: 'Work In Progress', value: ps.wip, icon: Clock, style: 'text-brand-600 bg-brand-100' },
+    { label: 'Active', value: ps.active, icon: Zap, style: 'text-success-600 bg-success-50' },
+    { label: 'Needs Attention', value: ps.attention, icon: AlertTriangle, style: 'text-danger-600 bg-danger-50' },
+  ];
   const loading = isLoading && !isDemo;
-  const maxWeekRevenue = Math.max(...WEEKLY_REVENUE.map(w => w.revenue));
+  const metrics = REVENUE_BY_PERIOD[period];
+  const chartData = CHART_BY_PERIOD[period];
+  const maxChartValue = Math.max(...chartData.map(d => d.revenue));
 
   return (
     <div>
@@ -79,11 +100,26 @@ export function DashboardPage() {
           </h1>
           <p className="text-sm text-surface-500 mt-1">Your campaign overview</p>
         </div>
-        {user?.role !== 'content_creator' && (
-          <button onClick={() => navigate('/campaigns/new')} className="btn-primary w-full sm:w-auto">
-            <Plus className="w-4 h-4" /> New Campaign
-          </button>
-        )}
+        <div className="flex items-center gap-3">
+          <div className="flex bg-surface-100 rounded-lg p-0.5">
+            {(['week', 'month', 'quarter', 'year'] as TimePeriod[]).map((p) => (
+              <button
+                key={p}
+                onClick={() => setPeriod(p)}
+                className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
+                  period === p ? 'bg-white text-surface-900 shadow-sm' : 'text-surface-500 hover:text-surface-700'
+                }`}
+              >
+                {p === 'week' ? 'Week' : p === 'month' ? 'Month' : p === 'quarter' ? 'Quarter' : 'Year'}
+              </button>
+            ))}
+          </div>
+          {user?.role !== 'content_creator' && (
+            <button onClick={() => navigate('/campaigns/new')} className="btn-primary hidden sm:inline-flex">
+              <Plus className="w-4 h-4" /> New Campaign
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Campaign Stats */}
@@ -104,13 +140,16 @@ export function DashboardPage() {
       </div>
 
       {/* Digital Net Revenue */}
-      <h2 className="text-[15px] font-semibold text-surface-900 mb-4">Digital Net Revenue</h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-[15px] font-semibold text-surface-900">Digital Net Revenue</h2>
+        <span className="text-xs text-surface-400">{PERIOD_LABELS[period]}</span>
+      </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-5">
         {[
-          { label: 'Net Revenue', value: `$${(REVENUE_METRICS.digitalNetRevenue / 1000).toFixed(0)}k`, growth: REVENUE_METRICS.revenueGrowth, icon: DollarSign, style: 'text-success-600 bg-success-50' },
-          { label: 'Avg Order Value', value: `$${REVENUE_METRICS.avgOrderValue}`, growth: REVENUE_METRICS.aovGrowth, icon: ShoppingCart, style: 'text-brand-600 bg-brand-100' },
-          { label: 'Total Orders', value: REVENUE_METRICS.totalOrders.toLocaleString(), growth: REVENUE_METRICS.ordersGrowth, icon: BarChart3, style: 'text-info-600 bg-info-50' },
-          { label: 'Conversion Rate', value: `${ REVENUE_METRICS.conversionRate}%`, growth: REVENUE_METRICS.conversionGrowth, icon: TrendingUp, style: 'text-surface-600 bg-surface-100' },
+          { label: 'Net Revenue', value: `$${metrics.digitalNetRevenue >= 1000000 ? (metrics.digitalNetRevenue / 1000000).toFixed(1) + 'M' : (metrics.digitalNetRevenue / 1000).toFixed(0) + 'k'}`, growth: metrics.revenueGrowth, icon: DollarSign, style: 'text-success-600 bg-success-50' },
+          { label: 'Avg Order Value', value: `$${metrics.avgOrderValue}`, growth: metrics.aovGrowth, icon: ShoppingCart, style: 'text-brand-600 bg-brand-100' },
+          { label: 'Total Orders', value: metrics.totalOrders.toLocaleString(), growth: metrics.ordersGrowth, icon: BarChart3, style: 'text-info-600 bg-info-50' },
+          { label: 'Conversion Rate', value: `${metrics.conversionRate}%`, growth: metrics.conversionGrowth, icon: TrendingUp, style: 'text-surface-600 bg-surface-100' },
         ].map((m) => (
           <div key={m.label} className="card px-5 py-4">
             <div className="flex items-center justify-between mb-3">
@@ -131,13 +170,13 @@ export function DashboardPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div className="card p-5">
-          <h3 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-4">Weekly Revenue (March)</h3>
-          <div className="flex items-end gap-4 h-32">
-            {WEEKLY_REVENUE.map((w) => (
-              <div key={w.week} className="flex-1 flex flex-col items-center gap-1.5">
-                <span className="text-[11px] font-medium text-surface-900 tabular-nums">${(w.revenue / 1000).toFixed(0)}k</span>
-                <div className="w-full bg-success-400 rounded-t-md" style={{ height: `${(w.revenue / maxWeekRevenue) * 100}%`, minHeight: 8 }} />
-                <span className="text-[11px] text-surface-400">{w.week}</span>
+          <h3 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-4">Revenue — {PERIOD_LABELS[period]}</h3>
+          <div className="flex items-end gap-3 h-32">
+            {chartData.map((d) => (
+              <div key={d.label} className="flex-1 flex flex-col items-center gap-1.5">
+                <span className="text-[10px] font-medium text-surface-900 tabular-nums">${d.revenue >= 1000000 ? (d.revenue / 1000000).toFixed(1) + 'M' : (d.revenue / 1000).toFixed(0) + 'k'}</span>
+                <div className="w-full rounded-t-md" style={{ height: `${(d.revenue / maxChartValue) * 100}%`, minHeight: 8, backgroundColor: '#22c55e' }} />
+                <span className="text-[10px] text-surface-400">{d.label}</span>
               </div>
             ))}
           </div>

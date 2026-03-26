@@ -131,44 +131,46 @@ export function CampaignDetailPage() {
       </button>
 
       {/* Header */}
-      <div className="flex items-start justify-between mb-6">
-        <div className="flex-1">
-          <div className="flex items-center gap-3 mb-1.5">
-            <span className={`badge ${getStatusStyle(campaign.status)}`}>{STATUS_LABELS[campaign.status as CampaignStatus]}</span>
-            <span className="text-xs text-surface-400">{CAMPAIGN_TYPE_LABELS[campaign.campaignTypeCode as CampaignTypeCode]}</span>
-            {campaign.parentId && (
-              <span className="badge badge-default text-[10px] flex items-center gap-1">
-                <Link2 className="w-2.5 h-2.5" /> Child campaign
-              </span>
+      <div className="card p-5 mb-6">
+        <div className="flex items-start justify-between">
+          <div className="flex-1">
+            <div className="flex items-center gap-3 mb-2">
+              <span className={`badge ${getStatusStyle(campaign.status)}`}>{STATUS_LABELS[campaign.status as CampaignStatus]}</span>
+              <span className="text-xs text-surface-400">{CAMPAIGN_TYPE_LABELS[campaign.campaignTypeCode as CampaignTypeCode]}</span>
+              {campaign.parentId && (
+                <span className="badge badge-default text-[10px] flex items-center gap-1">
+                  <Link2 className="w-2.5 h-2.5" /> Child campaign
+                </span>
+              )}
+            </div>
+            {editing ? (
+              <div className="space-y-2 mt-2">
+                <input value={editForm.title} onChange={(e) => setEditForm((f) => ({ ...f, title: e.target.value }))} className="input-field text-lg font-semibold" />
+                <textarea value={editForm.description} onChange={(e) => setEditForm((f) => ({ ...f, description: e.target.value }))} rows={2} className="input-field text-sm" />
+                <div className="flex gap-2">
+                  <button onClick={() => isDemo ? setEditing(false) : updateMutation.mutate()} className="btn-primary text-xs"><Check className="w-3 h-3" /> Save</button>
+                  <button onClick={() => setEditing(false)} className="btn-ghost text-xs"><X className="w-3 h-3" /> Cancel</button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <h1 className="text-[22px] font-semibold text-surface-900 tracking-tight">{campaign.title}</h1>
+                {campaign.description && <p className="text-sm text-surface-500 mt-2 leading-relaxed">{campaign.description}</p>}
+              </>
             )}
           </div>
-          {editing ? (
-            <div className="space-y-2 mt-2">
-              <input value={editForm.title} onChange={(e) => setEditForm((f) => ({ ...f, title: e.target.value }))} className="input-field text-lg font-semibold" />
-              <textarea value={editForm.description} onChange={(e) => setEditForm((f) => ({ ...f, description: e.target.value }))} rows={2} className="input-field text-sm" />
-              <div className="flex gap-2">
-                <button onClick={() => isDemo ? setEditing(false) : updateMutation.mutate()} className="btn-primary text-xs"><Check className="w-3 h-3" /> Save</button>
-                <button onClick={() => setEditing(false)} className="btn-ghost text-xs"><X className="w-3 h-3" /> Cancel</button>
-              </div>
+          {!editing && (
+            <div className="flex gap-2 shrink-0 ml-4">
+              {canEdit && (
+                <button onClick={startEdit} className="btn-secondary text-xs"><Pencil className="w-3.5 h-3.5" /> Edit</button>
+              )}
+              <button onClick={() => setShowDuplicateModal(true)} className="btn-secondary text-xs"><Copy className="w-3.5 h-3.5" /> Duplicate</button>
+              {!isDemo && (
+                <button onClick={() => deleteMutation.mutate()} className="btn-danger text-xs"><Trash2 className="w-3.5 h-3.5" /></button>
+              )}
             </div>
-          ) : (
-            <>
-              <h1 className="text-[22px] font-semibold text-surface-900 tracking-tight">{campaign.title}</h1>
-              {campaign.description && <p className="text-sm text-surface-500 mt-1.5 max-w-xl">{campaign.description}</p>}
-            </>
           )}
         </div>
-        {!editing && (
-          <div className="flex gap-2 shrink-0 ml-4">
-            {canEdit && (
-              <button onClick={startEdit} className="btn-secondary text-xs"><Pencil className="w-3.5 h-3.5" /> Edit</button>
-            )}
-            <button onClick={() => setShowDuplicateModal(true)} className="btn-secondary text-xs"><Copy className="w-3.5 h-3.5" /> Duplicate</button>
-            {!isDemo && (
-              <button onClick={() => deleteMutation.mutate()} className="btn-danger text-xs"><Trash2 className="w-3.5 h-3.5" /></button>
-            )}
-          </div>
-        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
