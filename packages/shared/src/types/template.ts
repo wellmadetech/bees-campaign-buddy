@@ -11,4 +11,4 @@ export interface Template {
   updatedAt: string;
 }
 
-export type TemplateChannel = 'push' | 'email' | 'in_app' | 'content_card';
+export type TemplateChannel = 'push' | 'email' | 'in_app' | 'content_card' | 'sms' | 'whatsapp' | 'webhook';

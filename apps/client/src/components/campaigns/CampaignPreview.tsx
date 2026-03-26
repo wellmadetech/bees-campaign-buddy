@@ -7,7 +7,7 @@ interface Props {
   cta?: string;
   subject?: string;
   imageUrl?: string;
-  channel?: 'push' | 'email' | 'in_app';
+  channel?: 'push' | 'email' | 'in_app' | 'content_card' | 'sms' | 'whatsapp' | 'webhook';
   open: boolean;
   onClose: () => void;
 }

@@ -115,7 +115,7 @@ export function CampaignDetailPage() {
   const allowedTransitions = ALLOWED_TRANSITIONS[campaign.status as CampaignStatus] ?? [];
   const canEdit = campaign.status === 'in_progress' || campaign.status === 'needs_attention';
   const isActive = campaign.status === 'active';
-  const channel = 'Push'; // Demo — would come from campaign data
+  const channel = 'Push Notification'; // Demo — would come from campaign data
   const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   const fmtDateTime = (d: string) => new Date(d).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
 

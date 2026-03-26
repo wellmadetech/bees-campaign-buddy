@@ -31,52 +31,52 @@ interface Bundle {
 
 const INITIAL_BUNDLES: Bundle[] = [
   {
-    id: 'b1', name: 'Super Bowl LX Bundle', description: 'Complete campaign package for Super Bowl weekend — push notifications, email blasts, and in-app promotions for beer and snack combos.', imageUrl: 'https://placehold.co/600x300/1E293B/FFFFFF?text=Super+Bowl+LX', campaignCount: 5, channels: ['Push', 'Email', 'In-App'], scheduledPeriod: 'Feb 1 – Feb 10, 2027', subscribedCount: 287, totalBranches: 400, status: 'upcoming', featured: true,
+    id: 'b1', name: 'Super Bowl LX Bundle', description: 'Complete campaign package for Super Bowl weekend — push notifications, email blasts, and in-app promotions for beer and snack combos.', imageUrl: 'https://placehold.co/600x300/1E293B/FFFFFF?text=Super+Bowl+LX', campaignCount: 5, channels: ['Push Notification', 'Email', 'In-App Message', 'SMS / MMS'], scheduledPeriod: 'Feb 1 – Feb 10, 2027', subscribedCount: 287, totalBranches: 400, status: 'upcoming', featured: true,
     campaigns: [
-      { id: 'sb-1', title: 'Game Day Beer Deals — Pre-game Push', type: 'Ad-hoc Sales', channel: 'Push', status: 'in_progress', scheduledDate: 'Feb 1' },
+      { id: 'sb-1', title: 'Game Day Beer Deals — Pre-game Push', type: 'Ad-hoc Sales', channel: 'Push Notification', status: 'in_progress', scheduledDate: 'Feb 1' },
       { id: 'sb-2', title: 'Super Bowl Party Pack Email', type: 'Ad-hoc Sales', channel: 'Email', status: 'in_progress', scheduledDate: 'Feb 3' },
-      { id: 'sb-3', title: 'Last Call — Order by Thursday', type: 'Ad-hoc Operational', channel: 'Push', status: 'in_progress', scheduledDate: 'Feb 6' },
-      { id: 'sb-4', title: 'Game Day In-App Banner', type: 'Ad-hoc Sales', channel: 'In-App', status: 'in_progress', scheduledDate: 'Feb 9' },
+      { id: 'sb-3', title: 'Last Call — Order by Thursday', type: 'Ad-hoc Operational', channel: 'Push Notification', status: 'in_progress', scheduledDate: 'Feb 6' },
+      { id: 'sb-4', title: 'Game Day In-App Banner', type: 'Ad-hoc Sales', channel: 'In-App Message', status: 'in_progress', scheduledDate: 'Feb 9' },
       { id: 'sb-5', title: 'Post-Game Thank You + Reorder', type: 'Lifecycle', channel: 'Email', status: 'in_progress', scheduledDate: 'Feb 10' },
     ],
   },
   {
-    id: 'b2', name: 'Cinco de Mayo Fiesta', description: 'Coordinated campaign series for Cinco de Mayo — Corona, Modelo, and Pacifico promotions with festive creative.', imageUrl: 'https://placehold.co/600x300/78350F/FFFFFF?text=Cinco+de+Mayo', campaignCount: 4, channels: ['Push', 'Email'], scheduledPeriod: 'Apr 28 – May 5, 2026', subscribedCount: 312, totalBranches: 400, status: 'active',
+    id: 'b2', name: 'Cinco de Mayo Fiesta', description: 'Coordinated campaign series for Cinco de Mayo — Corona, Modelo, and Pacifico promotions with festive creative.', imageUrl: 'https://placehold.co/600x300/78350F/FFFFFF?text=Cinco+de+Mayo', campaignCount: 4, channels: ['Push Notification', 'Email', 'WhatsApp'], scheduledPeriod: 'Apr 28 – May 5, 2026', subscribedCount: 312, totalBranches: 400, status: 'active',
     campaigns: [
-      { id: 'cm-1', title: 'Early Bird — Cinco de Mayo Stock Up', type: 'Ad-hoc Sales', channel: 'Push', status: 'active', scheduledDate: 'Apr 28' },
+      { id: 'cm-1', title: 'Early Bird — Cinco de Mayo Stock Up', type: 'Ad-hoc Sales', channel: 'Push Notification', status: 'active', scheduledDate: 'Apr 28' },
       { id: 'cm-2', title: 'Corona Bundle Spotlight', type: 'Ad-hoc Sales', channel: 'Email', status: 'active', scheduledDate: 'May 1' },
-      { id: 'cm-3', title: 'Last Chance Delivery Cutoff', type: 'Ad-hoc Operational', channel: 'Push', status: 'in_progress', scheduledDate: 'May 3' },
-      { id: 'cm-4', title: 'Cinco de Mayo Day-of Push', type: 'Ad-hoc Sales', channel: 'Push', status: 'in_progress', scheduledDate: 'May 5' },
+      { id: 'cm-3', title: 'Last Chance Delivery Cutoff', type: 'Ad-hoc Operational', channel: 'Push Notification', status: 'in_progress', scheduledDate: 'May 3' },
+      { id: 'cm-4', title: 'Cinco de Mayo Day-of Push', type: 'Ad-hoc Sales', channel: 'Push Notification', status: 'in_progress', scheduledDate: 'May 5' },
     ],
   },
   {
-    id: 'b3', name: 'FIFA World Cup 2026', description: 'Multi-week campaign bundle for the World Cup — daily match-day promos, branded content, and special edition packs.', imageUrl: 'https://placehold.co/600x300/064E3B/FFFFFF?text=World+Cup+2026', campaignCount: 8, channels: ['Push', 'Email', 'In-App', 'Content Card'], scheduledPeriod: 'Jun 11 – Jul 19, 2026', subscribedCount: 198, totalBranches: 400, status: 'upcoming',
+    id: 'b3', name: 'FIFA World Cup 2026', description: 'Multi-week campaign bundle for the World Cup — daily match-day promos, branded content, and special edition packs.', imageUrl: 'https://placehold.co/600x300/064E3B/FFFFFF?text=World+Cup+2026', campaignCount: 8, channels: ['Push Notification', 'Email', 'In-App Message', 'Content Card', 'SMS / MMS', 'WhatsApp'], scheduledPeriod: 'Jun 11 – Jul 19, 2026', subscribedCount: 198, totalBranches: 400, status: 'upcoming',
     campaigns: [
-      { id: 'wc-1', title: 'World Cup Kickoff — Opening Day Deals', type: 'Ad-hoc Sales', channel: 'Push', status: 'in_progress', scheduledDate: 'Jun 11' },
+      { id: 'wc-1', title: 'World Cup Kickoff — Opening Day Deals', type: 'Ad-hoc Sales', channel: 'Push Notification', status: 'in_progress', scheduledDate: 'Jun 11' },
       { id: 'wc-2', title: 'Match Day Bundle — Group Stage', type: 'Ad-hoc Sales', channel: 'Email', status: 'in_progress', scheduledDate: 'Jun 14' },
-      { id: 'wc-3', title: 'Weekly Scorecard + Reorder Reminder', type: 'Lifecycle', channel: 'In-App', status: 'in_progress', scheduledDate: 'Jun 18' },
-      { id: 'wc-4', title: 'Round of 16 Special', type: 'Ad-hoc Sales', channel: 'Push', status: 'in_progress', scheduledDate: 'Jun 28' },
+      { id: 'wc-3', title: 'Weekly Scorecard + Reorder Reminder', type: 'Lifecycle', channel: 'In-App Message', status: 'in_progress', scheduledDate: 'Jun 18' },
+      { id: 'wc-4', title: 'Round of 16 Special', type: 'Ad-hoc Sales', channel: 'Push Notification', status: 'in_progress', scheduledDate: 'Jun 28' },
       { id: 'wc-5', title: 'Quarter-Final Watch Party Pack', type: 'Ad-hoc Sales', channel: 'Email', status: 'in_progress', scheduledDate: 'Jul 4' },
-      { id: 'wc-6', title: 'Semi-Final Countdown', type: 'Ad-hoc Sales', channel: 'Push', status: 'in_progress', scheduledDate: 'Jul 8' },
+      { id: 'wc-6', title: 'Semi-Final Countdown', type: 'Ad-hoc Sales', channel: 'Push Notification', status: 'in_progress', scheduledDate: 'Jul 8' },
       { id: 'wc-7', title: 'Final Weekend Blowout', type: 'Ad-hoc Sales', channel: 'Content Card', status: 'in_progress', scheduledDate: 'Jul 18' },
       { id: 'wc-8', title: 'Post-Tournament Thank You', type: 'Lifecycle', channel: 'Email', status: 'in_progress', scheduledDate: 'Jul 19' },
     ],
   },
   {
-    id: 'b4', name: 'Christmas & New Year Bundle', description: 'Holiday season campaign series — festive promotions, holiday hours, and New Year celebration deals.', imageUrl: 'https://placehold.co/600x300/991B1B/FFFFFF?text=Holiday+Season', campaignCount: 6, channels: ['Push', 'Email', 'In-App'], scheduledPeriod: 'Dec 1 – Jan 2, 2027', subscribedCount: 356, totalBranches: 400, status: 'upcoming',
+    id: 'b4', name: 'Christmas & New Year Bundle', description: 'Holiday season campaign series — festive promotions, holiday hours, and New Year celebration deals.', imageUrl: 'https://placehold.co/600x300/991B1B/FFFFFF?text=Holiday+Season', campaignCount: 6, channels: ['Push Notification', 'Email', 'In-App Message', 'SMS / MMS'], scheduledPeriod: 'Dec 1 – Jan 2, 2027', subscribedCount: 356, totalBranches: 400, status: 'upcoming',
     campaigns: [
-      { id: 'xm-1', title: 'Holiday Season Kickoff', type: 'Ad-hoc Sales', channel: 'Push', status: 'in_progress', scheduledDate: 'Dec 1' },
+      { id: 'xm-1', title: 'Holiday Season Kickoff', type: 'Ad-hoc Sales', channel: 'Push Notification', status: 'in_progress', scheduledDate: 'Dec 1' },
       { id: 'xm-2', title: 'Holiday Hours Notice', type: 'Ad-hoc Operational', channel: 'Email', status: 'in_progress', scheduledDate: 'Dec 15' },
-      { id: 'xm-3', title: 'Last Order Before Christmas', type: 'Ad-hoc Operational', channel: 'Push', status: 'in_progress', scheduledDate: 'Dec 20' },
+      { id: 'xm-3', title: 'Last Order Before Christmas', type: 'Ad-hoc Operational', channel: 'Push Notification', status: 'in_progress', scheduledDate: 'Dec 20' },
       { id: 'xm-4', title: 'Christmas Week Celebration Deals', type: 'Ad-hoc Sales', channel: 'Email', status: 'in_progress', scheduledDate: 'Dec 23' },
-      { id: 'xm-5', title: 'New Year Eve Party Pack', type: 'Ad-hoc Sales', channel: 'In-App', status: 'in_progress', scheduledDate: 'Dec 29' },
+      { id: 'xm-5', title: 'New Year Eve Party Pack', type: 'Ad-hoc Sales', channel: 'In-App Message', status: 'in_progress', scheduledDate: 'Dec 29' },
       { id: 'xm-6', title: 'Happy New Year — Start 2027 Right', type: 'Lifecycle', channel: 'Email', status: 'in_progress', scheduledDate: 'Jan 2' },
     ],
   },
 ];
 
 const STATUS_BADGE: Record<string, string> = { active: 'badge-success', upcoming: 'badge-info', completed: 'badge-default' };
-const CHANNELS = ['Push', 'Email', 'In-App', 'Content Card'];
+const CHANNELS = ['Push Notification', 'Email', 'In-App Message', 'Content Card', 'SMS / MMS', 'WhatsApp', 'Webhook'];
 const CAMPAIGN_TYPES = Object.values(CAMPAIGN_TYPE_LABELS);
 
 interface BundleFormCampaign {
@@ -99,7 +99,7 @@ export function BundlesPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState({ name: '', description: '', imageUrl: '', scheduledPeriod: '', status: 'upcoming' as Bundle['status'] });
-  const [formCampaigns, setFormCampaigns] = useState<BundleFormCampaign[]>([{ title: '', type: CAMPAIGN_TYPES[0], channel: 'Push', scheduledDate: '' }]);
+  const [formCampaigns, setFormCampaigns] = useState<BundleFormCampaign[]>([{ title: '', type: CAMPAIGN_TYPES[0], channel: 'Push Notification', scheduledDate: '' }]);
 
   const filtered = statusFilter ? bundles.filter((b) => b.status === statusFilter) : bundles;
   const featuredBundle = bundles.find((b) => b.featured) ?? bundles[0];
@@ -110,7 +110,7 @@ export function BundlesPage() {
 
   const openCreate = () => {
     setForm({ name: '', description: '', imageUrl: '', scheduledPeriod: '', status: 'upcoming' });
-    setFormCampaigns([{ title: '', type: CAMPAIGN_TYPES[0], channel: 'Push', scheduledDate: '' }]);
+    setFormCampaigns([{ title: '', type: CAMPAIGN_TYPES[0], channel: 'Push Notification', scheduledDate: '' }]);
     setEditingId(null);
     setShowForm(true);
   };
@@ -148,7 +148,7 @@ export function BundlesPage() {
   };
 
   const addCampaignRow = () => {
-    setFormCampaigns((prev) => [...prev, { title: '', type: CAMPAIGN_TYPES[0], channel: 'Push', scheduledDate: '' }]);
+    setFormCampaigns((prev) => [...prev, { title: '', type: CAMPAIGN_TYPES[0], channel: 'Push Notification', scheduledDate: '' }]);
   };
 
   const removeCampaignRow = (idx: number) => {

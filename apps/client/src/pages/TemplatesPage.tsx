@@ -1,8 +1,8 @@
 import { useState, useRef } from 'react';
 import { useAuthStore } from '../store/authStore';
-import { Plus, Mail, Smartphone, Layout, MessageSquare, Pencil, Trash2, X, Eye, Upload, Image } from 'lucide-react';
+import { Plus, Mail, Smartphone, Layout, MessageSquare, MessageCircle, Phone, Webhook, Pencil, Trash2, X, Eye, Upload, Image } from 'lucide-react';
 
-type Channel = 'push' | 'email' | 'in_app' | 'content_card';
+type Channel = 'push' | 'email' | 'in_app' | 'content_card' | 'sms' | 'whatsapp' | 'webhook';
 
 interface MockTemplate {
   id: string;
@@ -23,11 +23,14 @@ const INITIAL_TEMPLATES: MockTemplate[] = [
   { id: '4', name: 'Operational Notice — Email', channel: 'email', description: 'Email template for operational communications', status: 'Active', subject: 'Important Update from BEES', body: 'Please be aware of the following change: {{notice_text}}', cta: 'Learn More', previewImageUrl: 'https://placehold.co/400x260/EFF6FF/2563EB?text=Ops+Email' },
   { id: '5', name: 'Lifecycle — In-App Message', channel: 'in_app', description: 'In-app messaging for NPS, surveys, and onboarding', status: 'Active', body: "We'd love your feedback! Take a quick survey.", cta: 'Start Survey', previewImageUrl: 'https://placehold.co/400x260/F0FDF4/16A34A?text=In-App+Preview' },
   { id: '6', name: 'Content Card — Featured', channel: 'content_card', description: 'Content card for featured products and promotions', status: 'Draft', body: 'Featured: {{product_name}} — now available for order', cta: 'View Product' },
+  { id: '7', name: 'Order Reminder — SMS', channel: 'sms', description: 'SMS text message for order reminders and delivery alerts', status: 'Active', body: 'BEES: Your order is ready for pickup. Track: {{tracking_url}}', cta: 'Track Order', previewImageUrl: 'https://placehold.co/400x260/F3E8FF/7C3AED?text=SMS+Preview' },
+  { id: '8', name: 'Promo Alert — WhatsApp', channel: 'whatsapp', description: 'WhatsApp message template for promotions and updates', status: 'Active', body: 'Hey {{retailer_name}}! New deals on {{product_name}} just dropped on BEES. Order now and save.', cta: 'Open BEES', previewImageUrl: 'https://placehold.co/400x260/DCFCE7/166534?text=WhatsApp+Preview' },
+  { id: '9', name: 'Inventory Sync — Webhook', channel: 'webhook', description: 'Webhook trigger for external inventory and ERP system sync', status: 'Draft', body: 'Triggers POST to {{webhook_url}} with campaign payload', cta: 'Configure' },
 ];
 
-const CHANNEL_ICONS: Record<Channel, typeof Mail> = { push: Smartphone, email: Mail, in_app: Layout, content_card: MessageSquare };
-const CHANNEL_STYLES: Record<Channel, string> = { push: 'text-info-600 bg-info-50', email: 'text-brand-600 bg-brand-100', in_app: 'text-success-600 bg-success-50', content_card: 'text-surface-600 bg-surface-100' };
-const CHANNEL_LABELS: Record<Channel, string> = { push: 'Push', email: 'Email', in_app: 'In-App', content_card: 'Content Card' };
+const CHANNEL_ICONS: Record<Channel, typeof Mail> = { push: Smartphone, email: Mail, in_app: Layout, content_card: MessageSquare, sms: Phone, whatsapp: MessageCircle, webhook: Webhook };
+const CHANNEL_STYLES: Record<Channel, string> = { push: 'text-info-600 bg-info-50', email: 'text-brand-600 bg-brand-100', in_app: 'text-success-600 bg-success-50', content_card: 'text-surface-600 bg-surface-100', sms: 'text-purple-600 bg-purple-50', whatsapp: 'text-green-600 bg-green-50', webhook: 'text-surface-600 bg-surface-100' };
+const CHANNEL_LABELS: Record<Channel, string> = { push: 'Push Notification', email: 'Email', in_app: 'In-App Message', content_card: 'Content Card', sms: 'SMS / MMS', whatsapp: 'WhatsApp', webhook: 'Webhook' };
 
 export function TemplatesPage() {
   const user = useAuthStore((s) => s.user);
