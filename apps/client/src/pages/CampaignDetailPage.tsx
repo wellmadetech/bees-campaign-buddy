@@ -224,51 +224,38 @@ export function CampaignDetailPage() {
               <div className="card p-5">
                 <h2 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-5">Performance</h2>
 
-                {/* Delivery flow */}
-                <div className="flex items-center justify-between mb-5">
+                {/* Delivery funnel — uniform grid */}
+                <div className="grid grid-cols-4 gap-px bg-surface-100 rounded-xl overflow-hidden mb-5">
                   {[
-                    { label: 'Sent', value: stats.sent },
-                    { label: 'Delivered', value: stats.delivered, rate: deliveryRate },
-                    { label: 'Opened', value: stats.opened, rate: openRate },
-                    { label: 'Clicked', value: stats.clicked, rate: ctr },
-                  ].map((step, i, arr) => (
-                    <div key={step.label} className="flex items-center">
-                      <div className="text-center">
-                        <div className="text-[17px] font-semibold text-surface-900 tabular-nums">{step.value.toLocaleString()}</div>
-                        <div className="text-[11px] text-surface-400 mt-0.5">{step.label}</div>
-                      </div>
-                      {i < arr.length - 1 && (
-                        <div className="mx-4 text-[10px] font-medium text-surface-300 flex flex-col items-center">
-                          <span>→</span>
-                          <span className="text-surface-400">{arr[i + 1].rate}%</span>
-                        </div>
-                      )}
+                    { label: 'Sent', value: stats.sent.toLocaleString(), sub: null },
+                    { label: 'Delivered', value: stats.delivered.toLocaleString(), sub: `${deliveryRate}% delivery` },
+                    { label: 'Opened', value: stats.opened.toLocaleString(), sub: `${openRate}% open rate` },
+                    { label: 'Clicked', value: stats.clicked.toLocaleString(), sub: `${ctr}% CTR` },
+                  ].map((step) => (
+                    <div key={step.label} className="bg-white p-4 text-center">
+                      <div className="text-[11px] font-medium text-surface-400 mb-1.5">{step.label}</div>
+                      <div className="text-xl font-semibold text-surface-900 tabular-nums">{step.value}</div>
+                      {step.sub && <div className="text-[11px] text-surface-400 mt-1">{step.sub}</div>}
                     </div>
                   ))}
                 </div>
 
-                {/* Key metrics row */}
+                {/* Key metrics */}
                 <div className="grid grid-cols-3 gap-3">
-                  <div className="bg-surface-50 rounded-xl p-3.5">
-                    <div className="text-[11px] text-surface-400 mb-1">Open Rate</div>
-                    <div className="flex items-baseline gap-1.5">
-                      <span className="text-xl font-semibold text-surface-900 tabular-nums">{openRate}%</span>
-                      <span className="text-[10px] font-medium text-success-600">+4.8% vs avg</span>
-                    </div>
+                  <div className="bg-surface-50 rounded-xl p-4">
+                    <div className="text-[11px] font-medium text-surface-400 mb-1.5">Open Rate</div>
+                    <div className="text-2xl font-semibold text-surface-900 tabular-nums">{openRate}%</div>
+                    <div className="text-[11px] font-medium text-success-600 mt-1">+4.8% vs avg</div>
                   </div>
-                  <div className="bg-surface-50 rounded-xl p-3.5">
-                    <div className="text-[11px] text-surface-400 mb-1">Click-Through Rate</div>
-                    <div className="flex items-baseline gap-1.5">
-                      <span className="text-xl font-semibold text-surface-900 tabular-nums">{ctr}%</span>
-                      <span className="text-[10px] font-medium text-success-600">+2.5% vs avg</span>
-                    </div>
+                  <div className="bg-surface-50 rounded-xl p-4">
+                    <div className="text-[11px] font-medium text-surface-400 mb-1.5">Click-Through Rate</div>
+                    <div className="text-2xl font-semibold text-surface-900 tabular-nums">{ctr}%</div>
+                    <div className="text-[11px] font-medium text-success-600 mt-1">+2.5% vs avg</div>
                   </div>
-                  <div className="bg-success-50 rounded-xl p-3.5">
-                    <div className="text-[11px] text-success-600 mb-1">Revenue</div>
-                    <div className="flex items-baseline gap-1.5">
-                      <span className="text-xl font-semibold text-success-700 tabular-nums">${stats.revenue.toLocaleString()}</span>
-                    </div>
-                    <div className="text-[10px] text-success-600 mt-0.5">{Math.round(stats.revenue / stats.spend).toLocaleString()}% ROI</div>
+                  <div className="bg-success-50 rounded-xl p-4">
+                    <div className="text-[11px] font-medium text-success-600 mb-1.5">Revenue</div>
+                    <div className="text-2xl font-semibold text-success-700 tabular-nums">${stats.revenue.toLocaleString()}</div>
+                    <div className="text-[11px] font-medium text-success-600 mt-1">{Math.round(stats.revenue / stats.spend).toLocaleString()}% ROI</div>
                   </div>
                 </div>
               </div>
