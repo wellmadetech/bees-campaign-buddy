@@ -224,23 +224,25 @@ export function CampaignDetailPage() {
               <div className="card p-5">
                 <h2 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-5">Performance</h2>
 
-                {/* Funnel visualization */}
-                <div className="flex items-center gap-2 mb-5">
+                {/* Delivery flow */}
+                <div className="flex items-center justify-between mb-5">
                   {[
-                    { label: 'Sent', value: stats.sent, pct: 100 },
-                    { label: 'Delivered', value: stats.delivered, pct: parseFloat(deliveryRate) },
-                    { label: 'Opened', value: stats.opened, pct: parseFloat(openRate) },
-                    { label: 'Clicked', value: stats.clicked, pct: parseFloat(ctr) },
+                    { label: 'Sent', value: stats.sent },
+                    { label: 'Delivered', value: stats.delivered, rate: deliveryRate },
+                    { label: 'Opened', value: stats.opened, rate: openRate },
+                    { label: 'Clicked', value: stats.clicked, rate: ctr },
                   ].map((step, i, arr) => (
-                    <div key={step.label} className="flex-1 flex items-center gap-2">
-                      <div className="flex-1">
-                        <div className="text-[11px] text-surface-400 mb-1">{step.label}</div>
-                        <div className="text-[15px] font-semibold text-surface-900 tabular-nums">{step.value.toLocaleString()}</div>
-                        <div className="mt-1.5 h-2 bg-surface-100 rounded-full overflow-hidden">
-                          <div className="h-full rounded-full bg-brand-500 transition-all" style={{ width: `${step.pct}%` }} />
-                        </div>
+                    <div key={step.label} className="flex items-center">
+                      <div className="text-center">
+                        <div className="text-[17px] font-semibold text-surface-900 tabular-nums">{step.value.toLocaleString()}</div>
+                        <div className="text-[11px] text-surface-400 mt-0.5">{step.label}</div>
                       </div>
-                      {i < arr.length - 1 && <div className="text-surface-300 text-xs mt-3">›</div>}
+                      {i < arr.length - 1 && (
+                        <div className="mx-4 text-[10px] font-medium text-surface-300 flex flex-col items-center">
+                          <span>→</span>
+                          <span className="text-surface-400">{arr[i + 1].rate}%</span>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
