@@ -11,7 +11,7 @@ const navItems = [
   { to: '/calendar', icon: CalendarDays, label: 'Calendar' },
   { to: '/bundles', icon: Package, label: 'Bundles' },
   { to: '/templates', icon: FileText, label: 'Templates' },
-  { to: '/assets', icon: ImageIcon, label: 'Assets' },
+  { to: '/assets', icon: ImageIcon, label: 'Assets', roles: ['dc_manager', 'content_creator'] },
   { to: '/reporting', icon: BarChart3, label: 'Reporting' },
   { to: '/users', icon: Users, label: 'Users', roles: ['dc_manager'] },
   { to: '/settings', icon: Settings, label: 'Settings' },
