@@ -4,7 +4,7 @@ import { REQUEST_STATUS_LABELS } from '@campaignbuddy/shared';
 import { CAMPAIGN_TYPE_LABELS } from '@campaignbuddy/shared';
 import type { CampaignTypeCode } from '@campaignbuddy/shared';
 import { getStatusStyle } from '../utils/statusHelpers';
-import { Check, X, Eye, Search, Filter } from 'lucide-react';
+import { Check, X, Eye, Search, Filter, UserPlus } from 'lucide-react';
 
 interface CampaignRequest {
   id: string;
@@ -18,15 +18,22 @@ interface CampaignRequest {
   channel: string;
   scheduledStart: string | null;
   denyReason?: string;
+  assignedTo?: string;
 }
+
+const ASSET_CREATORS = [
+  { id: 'ac-1', name: 'Carmen Rodriguez' },
+  { id: 'ac-2', name: 'James Wilson' },
+  { id: 'ac-3', name: 'Sofia Park' },
+];
 
 const INITIAL_REQUESTS: CampaignRequest[] = [
   { id: 'req-1', title: 'Summer BBQ Promo — Bud Light Seltzer', description: 'Push campaign for Memorial Day weekend BBQ specials', campaignTypeCode: 'ad_hoc_sales', wholesaler: 'Walter Smith', wholesalerBranch: 'Northeast Distribution', submittedAt: '2026-03-24T14:30:00Z', status: 'in_review', channel: 'Push Notification', scheduledStart: '2026-05-22T09:00:00Z' },
   { id: 'req-2', title: 'Price Adjustment Notice — April', description: 'Email notification about upcoming price changes', campaignTypeCode: 'ad_hoc_operational', wholesaler: 'Maria Johnson', wholesalerBranch: 'Southeast Distribution', submittedAt: '2026-03-24T11:00:00Z', status: 'in_review', channel: 'Email', scheduledStart: '2026-04-01T08:00:00Z' },
   { id: 'req-3', title: 'Stella Artois Feature — Spring', description: 'In-app promotion for Stella Artois spring campaign', campaignTypeCode: 'ad_hoc_sales', wholesaler: 'Robert Chen', wholesalerBranch: 'West Coast Distribution', submittedAt: '2026-03-23T16:00:00Z', status: 'in_review', channel: 'In-App Message', scheduledStart: '2026-04-10T09:00:00Z' },
-  { id: 'req-4', title: 'Warehouse Reroute — Construction', description: 'SMS alert about delivery delays', campaignTypeCode: 'ad_hoc_operational', wholesaler: 'Walter Smith', wholesalerBranch: 'Northeast Distribution', submittedAt: '2026-03-22T09:00:00Z', status: 'accepted', channel: 'SMS / MMS', scheduledStart: '2026-03-25T06:00:00Z' },
+  { id: 'req-4', title: 'Warehouse Reroute — Construction', description: 'SMS alert about delivery delays', campaignTypeCode: 'ad_hoc_operational', wholesaler: 'Walter Smith', wholesalerBranch: 'Northeast Distribution', submittedAt: '2026-03-22T09:00:00Z', status: 'accepted', channel: 'SMS / MMS', scheduledStart: '2026-03-25T06:00:00Z', assignedTo: 'Carmen Rodriguez' },
   { id: 'req-5', title: 'Unauthorized Brand Campaign', description: 'Campaign for a brand not in our portfolio', campaignTypeCode: 'ad_hoc_sales', wholesaler: 'James Wilson', wholesalerBranch: 'Southwest Distribution', submittedAt: '2026-03-21T10:00:00Z', status: 'denied', channel: 'Email', scheduledStart: null, denyReason: 'Brand not authorized for BEES campaigns' },
-  { id: 'req-6', title: 'Corona Cinco de Mayo — WhatsApp Blast', description: 'WhatsApp message for Cinco de Mayo Corona deals', campaignTypeCode: 'ad_hoc_sales', wholesaler: 'Maria Johnson', wholesalerBranch: 'Southeast Distribution', submittedAt: '2026-03-20T13:00:00Z', status: 'accepted', channel: 'WhatsApp', scheduledStart: '2026-04-28T09:00:00Z' },
+  { id: 'req-6', title: 'Corona Cinco de Mayo — WhatsApp Blast', description: 'WhatsApp message for Cinco de Mayo Corona deals', campaignTypeCode: 'ad_hoc_sales', wholesaler: 'Maria Johnson', wholesalerBranch: 'Southeast Distribution', submittedAt: '2026-03-20T13:00:00Z', status: 'accepted', channel: 'WhatsApp', scheduledStart: '2026-04-28T09:00:00Z', assignedTo: 'James Wilson' },
 ];
 
 export function CampaignRequestsPage() {
@@ -36,6 +43,8 @@ export function CampaignRequestsPage() {
   const [search, setSearch] = useState('');
   const [denyingId, setDenyingId] = useState<string | null>(null);
   const [denyReason, setDenyReason] = useState('');
+  const [acceptingId, setAcceptingId] = useState<string | null>(null);
+  const [selectedCreator, setSelectedCreator] = useState('');
 
   const filtered = requests.filter(r => {
     if (statusFilter && r.status !== statusFilter) return false;
@@ -44,7 +53,10 @@ export function CampaignRequestsPage() {
   });
 
   const handleAccept = (id: string) => {
-    setRequests(prev => prev.map(r => r.id === id ? { ...r, status: 'accepted' as const } : r));
+    if (!selectedCreator) return;
+    setRequests(prev => prev.map(r => r.id === id ? { ...r, status: 'accepted' as const, assignedTo: selectedCreator } : r));
+    setAcceptingId(null);
+    setSelectedCreator('');
   };
 
   const handleDeny = (id: string) => {
@@ -124,6 +136,14 @@ export function CampaignRequestsPage() {
                       </>
                     )}
                   </div>
+                  {req.status === 'accepted' && req.assignedTo && (
+                    <div className="mt-2 flex items-center gap-2">
+                      <div className="w-5 h-5 rounded-full bg-brand-100 flex items-center justify-center">
+                        <UserPlus className="w-3 h-3 text-brand-600" />
+                      </div>
+                      <span className="text-xs text-surface-600">Assigned to <span className="font-medium text-surface-900">{req.assignedTo}</span></span>
+                    </div>
+                  )}
                   {req.status === 'denied' && req.denyReason && (
                     <div className="mt-2 p-2 bg-danger-50 rounded-lg text-xs text-danger-600">
                       Denied: {req.denyReason}
@@ -132,16 +152,16 @@ export function CampaignRequestsPage() {
                 </div>
 
                 {/* Actions */}
-                {req.status === 'in_review' && (
+                {req.status === 'in_review' && acceptingId !== req.id && denyingId !== req.id && (
                   <div className="flex gap-2 shrink-0">
                     <button
-                      onClick={() => handleAccept(req.id)}
+                      onClick={() => { setAcceptingId(req.id); setDenyingId(null); }}
                       className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-success-600 text-white text-sm font-medium rounded-lg hover:bg-success-700 transition-colors"
                     >
                       <Check className="w-4 h-4" /> Accept
                     </button>
                     <button
-                      onClick={() => setDenyingId(req.id)}
+                      onClick={() => { setDenyingId(req.id); setAcceptingId(null); }}
                       className="btn-danger"
                     >
                       <X className="w-4 h-4" /> Deny
@@ -154,6 +174,45 @@ export function CampaignRequestsPage() {
                   </button>
                 )}
               </div>
+
+              {/* Accept flow — assign to Asset Creator */}
+              {acceptingId === req.id && (
+                <div className="mt-4 pt-4 border-t border-surface-100">
+                  <div className="flex items-center gap-2 mb-3">
+                    <UserPlus className="w-4 h-4 text-brand-600" />
+                    <span className="text-[13px] font-semibold text-surface-900">Assign to Asset Creator</span>
+                  </div>
+                  <div className="flex gap-2 flex-wrap mb-3">
+                    {ASSET_CREATORS.map((ac) => (
+                      <button
+                        key={ac.id}
+                        onClick={() => setSelectedCreator(ac.name)}
+                        className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 text-sm font-medium transition-all ${
+                          selectedCreator === ac.name
+                            ? 'border-brand-500 bg-brand-50 text-brand-700'
+                            : 'border-surface-200 text-surface-600 hover:border-surface-300'
+                        }`}
+                      >
+                        <div className="w-6 h-6 rounded-full bg-surface-200 flex items-center justify-center text-[10px] font-semibold text-surface-600">
+                          {ac.name.split(' ').map(n => n[0]).join('')}
+                        </div>
+                        {ac.name}
+                        {selectedCreator === ac.name && <Check className="w-3.5 h-3.5 text-brand-600" />}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex gap-2 justify-end">
+                    <button onClick={() => { setAcceptingId(null); setSelectedCreator(''); }} className="btn-secondary text-xs">Cancel</button>
+                    <button
+                      onClick={() => handleAccept(req.id)}
+                      disabled={!selectedCreator}
+                      className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-success-600 text-white text-sm font-medium rounded-lg hover:bg-success-700 transition-colors disabled:opacity-40"
+                    >
+                      <Check className="w-4 h-4" /> Accept & Assign to {selectedCreator || '...'}
+                    </button>
+                  </div>
+                </div>
+              )}
 
               {/* Deny reason form */}
               {denyingId === req.id && (

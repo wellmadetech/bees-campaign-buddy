@@ -10,9 +10,9 @@ export function ProtectedRoute() {
     return <Navigate to="/login" replace />;
   }
 
-  // Asset Creators don't have a dashboard — redirect to campaigns
+  // Asset Creators land on Content Studio
   if (user?.role === 'content_creator' && location.pathname === '/') {
-    return <Navigate to="/campaigns" replace />;
+    return <Navigate to="/studio" replace />;
   }
 
   return <Outlet />;

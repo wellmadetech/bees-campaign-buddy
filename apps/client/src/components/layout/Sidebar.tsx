@@ -1,13 +1,14 @@
 import { NavLink } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
-import { LayoutDashboard, Megaphone, CalendarDays, Package, FileText, ImageIcon, BarChart3, Inbox, Users, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, Megaphone, CalendarDays, Package, FileText, ImageIcon, BarChart3, Inbox, Users, Settings, Palette, LogOut } from 'lucide-react';
 import { clsx } from 'clsx';
 import { useNavigate } from 'react-router-dom';
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard', roles: ['dc_manager', 'wholesaler_manager'] },
   { to: '/requests', icon: Inbox, label: 'Requests', roles: ['dc_manager'] },
-  { to: '/campaigns', icon: Megaphone, label: 'Campaigns' },
+  { to: '/studio', icon: Palette, label: 'Content Studio', roles: ['content_creator'] },
+  { to: '/campaigns', icon: Megaphone, label: 'Campaigns', roles: ['dc_manager', 'wholesaler_manager'] },
   { to: '/calendar', icon: CalendarDays, label: 'Calendar', roles: ['dc_manager', 'wholesaler_manager'] },
   { to: '/bundles', icon: Package, label: 'Bundles', roles: ['dc_manager', 'wholesaler_manager'] },
   { to: '/templates', icon: FileText, label: 'Templates', roles: ['dc_manager', 'content_creator'] },

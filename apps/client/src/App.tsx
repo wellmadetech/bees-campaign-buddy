@@ -14,6 +14,7 @@ import { AssetLibraryPage } from './pages/AssetLibraryPage';
 import { BundlesPage } from './pages/BundlesPage';
 import { ReportingPage } from './pages/ReportingPage';
 import { UsersPage } from './pages/UsersPage';
+import { ContentStudioPage } from './pages/ContentStudioPage';
 import { OnboardingPage } from './pages/OnboardingPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
@@ -38,6 +39,7 @@ export default function App() {
             <Route element={<AppShell />}>
               <Route index element={<DashboardPage />} />
               <Route path="requests" element={<CampaignRequestsPage />} />
+              <Route path="studio" element={<ContentStudioPage />} />
               <Route path="campaigns" element={<CampaignListPage />} />
               <Route path="campaigns/new" element={<CampaignCreatePage />} />
               <Route path="campaigns/:id" element={<CampaignDetailPage />} />
