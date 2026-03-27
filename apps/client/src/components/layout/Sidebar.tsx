@@ -5,7 +5,7 @@ import { clsx } from 'clsx';
 import { useNavigate } from 'react-router-dom';
 
 const navItems = [
-  { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
+  { to: '/', icon: LayoutDashboard, label: 'Dashboard', roles: ['dc_manager', 'wholesaler_manager'] },
   { to: '/requests', icon: Inbox, label: 'Requests', roles: ['dc_manager'] },
   { to: '/campaigns', icon: Megaphone, label: 'Campaigns' },
   { to: '/calendar', icon: CalendarDays, label: 'Calendar', roles: ['dc_manager', 'wholesaler_manager'] },
