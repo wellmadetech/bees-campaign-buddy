@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
-import { LayoutDashboard, Megaphone, CalendarDays, Package, FileText, ImageIcon, BarChart3, Inbox, Users, Settings, Palette, LogOut } from 'lucide-react';
+import { Megaphone, CalendarDays, Package, FileText, ImageIcon, BarChart3, Inbox, Users, Settings, Palette, LogOut } from 'lucide-react';
 import { clsx } from 'clsx';
 import { useNavigate } from 'react-router-dom';
 
 const navItems = [
-  { to: '/', icon: LayoutDashboard, label: 'Dashboard', roles: ['dc_manager', 'wholesaler_manager'] },
+  { to: '/', icon: BarChart3, label: 'Reporting', roles: ['dc_manager', 'wholesaler_manager'] },
   { to: '/requests', icon: Inbox, label: 'Requests', roles: ['dc_manager'] },
   { to: '/studio', icon: Palette, label: 'Content Studio', roles: ['content_creator'] },
   { to: '/campaigns', icon: Megaphone, label: 'Campaigns', roles: ['dc_manager', 'wholesaler_manager'] },
@@ -13,7 +13,6 @@ const navItems = [
   { to: '/bundles', icon: Package, label: 'Bundles', roles: ['dc_manager', 'wholesaler_manager'] },
   { to: '/templates', icon: FileText, label: 'Templates', roles: ['dc_manager', 'content_creator'] },
   { to: '/assets', icon: ImageIcon, label: 'Assets', roles: ['dc_manager', 'content_creator'] },
-  { to: '/reporting', icon: BarChart3, label: 'Reporting', roles: ['dc_manager', 'wholesaler_manager'] },
   { to: '/users', icon: Users, label: 'Users', roles: ['dc_manager'] },
   { to: '/settings', icon: Settings, label: 'Settings' },
 ];
@@ -29,7 +28,7 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="w-[260px] bg-surface-900 flex flex-col h-full">
+    <aside className="w-[260px] bg-white border-r border-surface-200 flex flex-col h-full">
       {/* Logo */}
       <div className="px-6 py-5">
         <div className="flex items-center gap-3">
@@ -37,7 +36,7 @@ export function Sidebar() {
             <span className="text-white text-lg leading-none">B</span>
           </div>
           <div>
-            <h1 className="text-[15px] font-semibold text-white tracking-tight">Campaign Buddy</h1>
+            <h1 className="text-[15px] font-semibold text-surface-900 tracking-tight">Campaign Buddy</h1>
             <p className="text-[11px] text-surface-400 font-medium tracking-wide uppercase">BEES One</p>
           </div>
         </div>
@@ -57,8 +56,8 @@ export function Sidebar() {
                   clsx(
                     'flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-all duration-150',
                     isActive
-                      ? 'bg-white/10 text-white'
-                      : 'text-surface-400 hover:bg-white/5 hover:text-surface-200',
+                      ? 'bg-brand-50 text-brand-700'
+                      : 'text-surface-500 hover:bg-surface-50 hover:text-surface-900',
                   )
                 }
               >
@@ -71,19 +70,19 @@ export function Sidebar() {
 
       {/* User section */}
       <div className="px-3 pb-4">
-        <div className="border-t border-white/10 pt-4">
+        <div className="border-t border-surface-200 pt-4">
           <div className="flex items-center gap-3 px-3 mb-3">
-            <div className="w-8 h-8 rounded-full bg-surface-700 flex items-center justify-center text-xs font-medium text-surface-300">
+            <div className="w-8 h-8 rounded-full bg-brand-100 flex items-center justify-center text-xs font-medium text-brand-700">
               {user?.displayName?.split(' ').map(n => n[0]).join('') ?? '?'}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-[13px] font-medium text-surface-200 truncate">{user?.displayName}</div>
-              <div className="text-[11px] text-surface-500 truncate">{user?.email}</div>
+              <div className="text-[13px] font-medium text-surface-900 truncate">{user?.displayName}</div>
+              <div className="text-[11px] text-surface-400 truncate">{user?.email}</div>
             </div>
           </div>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 w-full px-3 py-2 text-[13px] font-medium text-surface-500 hover:text-surface-300 hover:bg-white/5 rounded-lg transition-all duration-150"
+            className="flex items-center gap-2 w-full px-3 py-2 text-[13px] font-medium text-surface-400 hover:text-surface-900 hover:bg-surface-50 rounded-lg transition-all duration-150"
           >
             <LogOut className="w-4 h-4" />
             Sign out

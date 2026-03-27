@@ -3,7 +3,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ProtectedRoute } from './components/layout/ProtectedRoute';
 import { AppShell } from './components/layout/AppShell';
 import { LoginPage } from './pages/LoginPage';
-import { DashboardPage } from './pages/DashboardPage';
 import { CampaignRequestsPage } from './pages/CampaignRequestsPage';
 import { CampaignListPage } from './pages/CampaignListPage';
 import { CampaignCreatePage } from './pages/CampaignCreatePage';
@@ -37,7 +36,7 @@ export default function App() {
           <Route path="/onboarding" element={<OnboardingPage />} />
           <Route element={<ProtectedRoute />}>
             <Route element={<AppShell />}>
-              <Route index element={<DashboardPage />} />
+              <Route index element={<ReportingPage />} />
               <Route path="requests" element={<CampaignRequestsPage />} />
               <Route path="studio" element={<ContentStudioPage />} />
               <Route path="campaigns" element={<CampaignListPage />} />
@@ -47,7 +46,6 @@ export default function App() {
               <Route path="bundles" element={<BundlesPage />} />
               <Route path="templates" element={<TemplatesPage />} />
               <Route path="assets" element={<AssetLibraryPage />} />
-              <Route path="reporting" element={<ReportingPage />} />
               <Route path="users" element={<UsersPage />} />
               <Route path="settings" element={<SettingsPage />} />
             </Route>

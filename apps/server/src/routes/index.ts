@@ -7,6 +7,7 @@ import templatesRoutes from './templates.routes.js';
 import audiencesRoutes from './audiences.routes.js';
 import webhooksRoutes from './webhooks.routes.js';
 import invitesRoutes from './invites.routes.js';
+import analyticsRoutes from './analytics.routes.js';
 
 const router = Router();
 
@@ -18,6 +19,7 @@ router.use('/campaigns', campaignsRoutes);
 router.use('/templates', templatesRoutes);
 router.use('/audiences', audiencesRoutes);
 router.use('/webhooks', webhooksRoutes);
+router.use('/analytics', analyticsRoutes);
 
 // Health check
 router.get('/health', (_req, res) => {

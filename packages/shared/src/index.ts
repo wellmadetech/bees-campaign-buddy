@@ -10,6 +10,12 @@ export type { Campaign, CampaignContent, CampaignCreative, ProductSelection, Cre
 export type { Template, TemplateChannel } from './types/template.js';
 export type { Audience, AudienceCriteria, AudienceFilter, CreateAudienceRequest, AudienceEstimateResponse } from './types/audience.js';
 export type { ApiResponse, PaginatedResponse, ApiError, AuthTokens, AuthUser } from './types/api.js';
+export type {
+  TouchpointChannel, ConversionType, EventType, AttributionModel,
+  AnalyticsFilters, ChannelMixResult, FunnelStep, FunnelSequence,
+  ChannelAttribution, CampaignMetricsSummary, CampaignMetricsTimeSeries,
+  AnalyticsOverview,
+} from './types/analytics.js';
 
 // Validators
 export { createUserSchema, updateUserSchema } from './validators/userSchema.js';

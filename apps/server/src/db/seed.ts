@@ -11,7 +11,7 @@ const DATABASE_URL =
   process.env.DATABASE_URL || 'postgresql://buddy:buddy_dev@localhost:5432/campaign_buddy';
 
 async function seed() {
-  const client = postgres(DATABASE_URL, { max: 1 });
+  const client = postgres(DATABASE_URL, { max: 1, ssl: DATABASE_URL.includes('render.com') ? 'require' : false });
   const db = drizzle(client);
 
   console.log('Seeding database...');
