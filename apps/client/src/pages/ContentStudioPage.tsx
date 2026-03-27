@@ -203,6 +203,73 @@ export function ContentStudioPage() {
             )}
           </div>
 
+          {/* Demographic Card */}
+          <div className="card p-5">
+            <h2 className="text-[13px] font-semibold text-surface-400 uppercase tracking-wider mb-4">Audience Demographics</h2>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              {/* Languages */}
+              <div>
+                <div className="text-[11px] font-medium text-surface-400 mb-2">Top Languages</div>
+                <div className="space-y-1.5">
+                  {[
+                    { lang: 'English', pct: 58 },
+                    { lang: 'Spanish', pct: 34 },
+                    { lang: 'Portuguese', pct: 8 },
+                  ].map(l => (
+                    <div key={l.lang}>
+                      <div className="flex items-center justify-between text-xs mb-0.5">
+                        <span className="text-surface-700">{l.lang}</span>
+                        <span className="text-surface-400 tabular-nums">{l.pct}%</span>
+                      </div>
+                      <div className="h-1.5 bg-surface-100 rounded-full overflow-hidden">
+                        <div className="h-full rounded-full" style={{ width: `${l.pct}%`, backgroundColor: l.pct > 50 ? '#3b82f6' : l.pct > 20 ? '#f59e0b' : '#94a3b8' }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Account Types */}
+              <div>
+                <div className="text-[11px] font-medium text-surface-400 mb-2">Account Types</div>
+                <div className="space-y-1.5">
+                  {[
+                    { type: 'Bar / Pub', pct: 32 },
+                    { type: 'Liquor Store', pct: 28 },
+                    { type: 'Restaurant', pct: 22 },
+                    { type: 'Convenience', pct: 18 },
+                  ].map(a => (
+                    <div key={a.type} className="flex items-center justify-between text-xs">
+                      <span className="text-surface-700">{a.type}</span>
+                      <span className="text-surface-400 tabular-nums">{a.pct}%</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              <div className="bg-surface-50 rounded-lg p-2.5 text-center">
+                <div className="text-sm font-semibold text-surface-900">35–54</div>
+                <div className="text-[10px] text-surface-400">Avg Age Range</div>
+              </div>
+              <div className="bg-surface-50 rounded-lg p-2.5 text-center">
+                <div className="text-sm font-semibold text-surface-900">Bi-weekly</div>
+                <div className="text-[10px] text-surface-400">Order Frequency</div>
+              </div>
+              <div className="bg-surface-50 rounded-lg p-2.5 text-center">
+                <div className="text-sm font-semibold text-surface-900">$342</div>
+                <div className="text-[10px] text-surface-400">Avg Order</div>
+              </div>
+            </div>
+            <div className="mt-3 pt-3 border-t border-surface-100">
+              <div className="text-[11px] font-medium text-surface-400 mb-1.5">Top Brands Ordered</div>
+              <div className="flex flex-wrap gap-1.5">
+                {['Bud Light', 'Corona', 'Michelob Ultra', 'Modelo', 'Stella Artois'].map(b => (
+                  <span key={b} className="badge badge-default text-[10px]">{b}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+
           {/* Content Editor */}
           <div className="card p-5">
             <div className="flex items-center justify-between mb-4">
