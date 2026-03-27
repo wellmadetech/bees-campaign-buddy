@@ -82,148 +82,96 @@ export default function AttributionChart({ data, isLoading, onModelChange, curre
         </div>
       </div>
 
-      {/* Revenue share visualization */}
+      {/* Revenue share visualization + table */}
       <div className="card p-6">
-        <h4 className="text-sm font-semibold text-surface-primary mb-1">Revenue Attribution by Channel</h4>
-        <p className="text-xs text-surface-secondary mb-5">
-          Total attributed revenue: <span className="font-semibold text-surface-700">${totalRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
-        </p>
+        <div className="flex items-center justify-between mb-5">
+          <div>
+            <h4 className="text-sm font-semibold text-surface-primary mb-0.5">Revenue Attribution by Channel</h4>
+            <p className="text-xs text-surface-secondary">
+              Total: <span className="font-semibold text-surface-700">${totalRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span> across {data.length} channels
+            </p>
+          </div>
+        </div>
 
         {/* Stacked bar */}
-        <div className="mb-5">
-          <div className="flex h-12 rounded-xl overflow-hidden shadow-sm">
-            {data.map((item) => {
-              const colors = CHANNEL_COLORS[item.channel] || DEFAULT_COLORS;
-              return (
-                <div
-                  key={item.channel}
-                  className={`${colors.bar} flex items-center justify-center transition-all duration-500 relative group`}
-                  style={{ width: `${Math.max(item.percentOfTotal, 3)}%` }}
-                >
-                  {item.percentOfTotal >= 10 && (
-                    <div className="text-center">
-                      <div className="text-xs font-bold text-white">{item.percentOfTotal}%</div>
-                      <div className="text-[9px] text-white/80">{channelLabel(item.channel)}</div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          {/* Legend for small segments */}
-          <div className="flex flex-wrap gap-3 mt-2">
-            {data.map((item) => {
-              const colors = CHANNEL_COLORS[item.channel] || DEFAULT_COLORS;
-              return (
-                <div key={item.channel} className="flex items-center gap-1.5">
-                  <div className={`w-2.5 h-2.5 rounded-sm ${colors.bar}`} />
-                  <span className="text-xs text-surface-500">{channelLabel(item.channel)}</span>
-                  <span className="text-xs font-semibold text-surface-700">{item.percentOfTotal}%</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Insight — right after the visual so the team sees it before the details */}
-        <div className="p-4 bg-purple-50 border border-purple-200 rounded-xl mb-5">
-          <p className="text-sm text-purple-800">
-            <strong>Attribution Insight:</strong>{' '}
-            <strong>{channelLabel(topChannel.channel)}</strong> drives the most attributed revenue at{' '}
-            <strong>${topChannel.attributedRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}</strong> ({topChannel.percentOfTotal}% of total).
-            {data.length >= 2 && (
-              <>{' '}Try switching between attribution models above to see how credit shifts — if a channel
-              ranks high in First Touch but low in Last Touch, it's great at awareness but not closing.
-              Use this to decide where to invest for each goal.</>
-            )}
-          </p>
-        </div>
-
-        {/* Channel cards */}
-        <div className="space-y-3">
-          {data.map((item, i) => {
+        <div className="flex h-10 rounded-xl overflow-hidden shadow-sm mb-4">
+          {data.map((item) => {
             const colors = CHANNEL_COLORS[item.channel] || DEFAULT_COLORS;
-            const isTop = i === 0;
-
             return (
               <div
                 key={item.channel}
-                className={`rounded-xl border p-4 transition-all ${
-                  isTop
-                    ? `${colors.border} ${colors.bg} ring-1 ${colors.ring}`
-                    : 'border-surface-200 bg-white'
-                }`}
+                className={`${colors.bar} flex items-center justify-center transition-all duration-500`}
+                style={{ width: `${Math.max(item.percentOfTotal, 3)}%` }}
               >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <ChannelBadge channel={item.channel} />
-                    {isTop && (
-                      <span className={`text-[10px] font-semibold uppercase tracking-wider ${colors.text} ${colors.bg} px-2 py-0.5 rounded-full`}>
-                        Top Channel
-                      </span>
-                    )}
+                {item.percentOfTotal >= 10 && (
+                  <div className="text-center">
+                    <div className="text-[11px] font-bold text-white">{item.percentOfTotal}%</div>
                   </div>
-                  <div className={`text-xl font-bold tabular-nums ${isTop ? colors.text : 'text-surface-900'}`}>
-                    {item.percentOfTotal}%
-                  </div>
-                </div>
-
-                {/* Revenue bar */}
-                <div className="mb-3">
-                  <div className="h-2.5 bg-surface-100 rounded-full overflow-hidden">
-                    <div
-                      className={`h-full rounded-full transition-all duration-700 ${colors.bar}`}
-                      style={{ width: `${(item.attributedRevenue / maxRevenue) * 100}%` }}
-                    />
-                  </div>
-                </div>
-
-                {/* Metrics */}
-                <div className="grid grid-cols-3 gap-3">
-                  <div>
-                    <div className="text-sm font-semibold text-surface-900 tabular-nums">
-                      ${item.attributedRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}
-                    </div>
-                    <div className="text-[10px] text-surface-400">Attributed Revenue</div>
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold text-surface-900 tabular-nums">
-                      {item.attributedConversions.toLocaleString(undefined, { maximumFractionDigits: 1 })}
-                    </div>
-                    <div className="text-[10px] text-surface-400">Attributed Conversions</div>
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold text-surface-900 tabular-nums">
-                      {item.avgTouchesBeforeConversion}
-                    </div>
-                    <div className="text-[10px] text-surface-400">Avg Touches to Convert</div>
-                  </div>
-                </div>
+                )}
               </div>
             );
           })}
         </div>
 
-        {/* Totals */}
-        <div className="mt-4 pt-4 border-t-2 border-surface-200 flex items-center justify-between">
-          <span className="text-xs font-semibold text-surface-500 uppercase tracking-wider">Total</span>
-          <div className="flex items-center gap-6">
-            <div className="text-right">
-              <div className="text-sm font-bold text-surface-900 tabular-nums">
-                ${totalRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}
-              </div>
-              <div className="text-[10px] text-surface-400">Revenue</div>
-            </div>
-            <div className="text-right">
-              <div className="text-sm font-bold text-surface-900 tabular-nums">
-                {totalConversions.toLocaleString(undefined, { maximumFractionDigits: 1 })}
-              </div>
-              <div className="text-[10px] text-surface-400">Conversions</div>
-            </div>
-          </div>
+        {/* Compact table — replaces the big channel cards */}
+        <table className="w-full text-xs">
+          <thead>
+            <tr className="border-b border-surface-200">
+              <th className="text-left py-2.5 font-semibold text-surface-500 uppercase tracking-wider text-[11px]">Channel</th>
+              <th className="text-right py-2.5 font-semibold text-surface-500 uppercase tracking-wider text-[11px]">Share</th>
+              <th className="text-right py-2.5 font-semibold text-surface-500 uppercase tracking-wider text-[11px]">Revenue</th>
+              <th className="text-right py-2.5 font-semibold text-surface-500 uppercase tracking-wider text-[11px]">Conversions</th>
+              <th className="text-right py-2.5 font-semibold text-surface-500 uppercase tracking-wider text-[11px]">Avg Touches</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item, i) => {
+              const colors = CHANNEL_COLORS[item.channel] || DEFAULT_COLORS;
+              return (
+                <tr key={item.channel} className="border-b border-surface-100 last:border-0">
+                  <td className="py-2.5">
+                    <div className="flex items-center gap-2">
+                      <div className={`w-2 h-2 rounded-sm ${colors.bar}`} />
+                      <ChannelBadge channel={item.channel} />
+                      {i === 0 && <span className="text-[9px] font-semibold text-green-600 uppercase">Top</span>}
+                    </div>
+                  </td>
+                  <td className={`text-right py-2.5 font-semibold tabular-nums ${i === 0 ? 'text-green-600' : 'text-surface-900'}`}>
+                    {item.percentOfTotal}%
+                  </td>
+                  <td className="text-right py-2.5 font-medium text-surface-900 tabular-nums">
+                    ${item.attributedRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                  </td>
+                  <td className="text-right py-2.5 text-surface-600 tabular-nums">
+                    {item.attributedConversions.toLocaleString(undefined, { maximumFractionDigits: 1 })}
+                  </td>
+                  <td className="text-right py-2.5 text-surface-400 tabular-nums">
+                    {item.avgTouchesBeforeConversion}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+          <tfoot>
+            <tr className="border-t-2 border-surface-200">
+              <td className="py-2.5 font-semibold text-surface-500">Total</td>
+              <td className="text-right py-2.5 font-semibold text-surface-900">100%</td>
+              <td className="text-right py-2.5 font-bold text-surface-900 tabular-nums">${totalRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}</td>
+              <td className="text-right py-2.5 font-medium text-surface-600 tabular-nums">{totalConversions.toLocaleString(undefined, { maximumFractionDigits: 1 })}</td>
+              <td className="text-right py-2.5 text-surface-400">—</td>
+            </tr>
+          </tfoot>
+        </table>
+
+        {/* Insight */}
+        <div className="mt-4 pt-3 border-t border-surface-100">
+          <p className="text-xs text-surface-500">
+            <strong className="text-surface-700">Insight:</strong>{' '}
+            <strong>{channelLabel(topChannel.channel)}</strong> drives {topChannel.percentOfTotal}% of attributed revenue.
+            {data.length >= 2 && <> Switch models above to see how credit shifts between channels.</>}
+          </p>
         </div>
       </div>
-
     </div>
   );
 }

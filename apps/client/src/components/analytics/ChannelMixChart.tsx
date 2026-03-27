@@ -64,20 +64,19 @@ export default function ChannelMixChart({ data, isLoading }: Props) {
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Insight — up top so the team sees the takeaway first */}
-      {multiChannel.length > 0 && singleChannel.length > 0 && (
-        <div className="p-4 bg-green-50 border border-green-200 rounded-xl">
-          <p className="text-sm text-green-800">
-            <strong>Key Takeaway:</strong> Adding channels increases conversion rates.{' '}
-            The best-performing combo (<strong>{best.comboLabel}</strong>) converts at{' '}
-            <strong>{(best.conversionRate * 100).toFixed(1)}%</strong> — that's{' '}
-            <strong>{avgSingleRate > 0 ? `${((best.conversionRate / avgSingleRate - 1) * 100).toFixed(0)}%` : '—'} higher</strong>{' '}
-            than the single-channel average. Consider using multi-channel strategies for your highest-value campaigns.
-          </p>
-        </div>
-      )}
+        {/* Insight — inside the header card */}
+        {multiChannel.length > 0 && singleChannel.length > 0 && (
+          <div className="mt-4 pt-4 border-t border-surface-100">
+            <p className="text-xs text-surface-500">
+              <strong className="text-surface-700">Key Takeaway:</strong> The best combo (<strong>{best.comboLabel}</strong>) converts at{' '}
+              <strong>{(best.conversionRate * 100).toFixed(1)}%</strong> — {' '}
+              <strong className="text-green-600">{avgSingleRate > 0 ? `${((best.conversionRate / avgSingleRate - 1) * 100).toFixed(0)}%` : '—'} higher</strong>{' '}
+              than single-channel average. Use multi-channel for high-value campaigns.
+            </p>
+          </div>
+        )}
+      </div>
 
       {/* Multi-channel combos */}
       {multiChannel.length > 0 && (

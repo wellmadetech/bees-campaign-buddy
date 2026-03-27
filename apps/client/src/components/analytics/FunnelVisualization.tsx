@@ -98,28 +98,25 @@ export default function FunnelVisualization({ data, isLoading }: Props) {
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Insight — up top */}
-      <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl">
-        <p className="text-sm text-blue-800">
-          <strong>Sequencing Insight:</strong>{' '}
-          {bestJourney.sequence.length > 1 ? (
-            <>
-              The <strong>{bestJourney.sequenceLabel}</strong> journey has the highest conversion rate at{' '}
-              <strong>{(bestJourney.conversionRate * 100).toFixed(1)}%</strong>.
-              {biggestReach !== bestJourney && (
-                <> The <strong>{biggestReach.sequenceLabel}</strong> path reaches the most POCs ({biggestReach.pocCount.toLocaleString()}) but converts at {(biggestReach.conversionRate * 100).toFixed(1)}%.
-                Consider shifting high-value campaigns toward the higher-converting sequence.</>
-              )}
-            </>
-          ) : (
-            <>
-              Single-channel journeys dominate by volume but multi-step sequences convert better.
-              Test adding a follow-up channel to your highest-volume campaigns.
-            </>
-          )}
-        </p>
+        {/* Insight — inside the header card */}
+        <div className="mt-4 pt-4 border-t border-surface-100">
+          <p className="text-xs text-surface-500">
+            <strong className="text-surface-700">Sequencing Insight:</strong>{' '}
+            {bestJourney.sequence.length > 1 ? (
+              <>
+                <strong>{bestJourney.sequenceLabel}</strong> has the highest conversion at{' '}
+                <strong className="text-green-600">{(bestJourney.conversionRate * 100).toFixed(1)}%</strong>.
+                {biggestReach !== bestJourney && (
+                  <> <strong>{biggestReach.sequenceLabel}</strong> reaches the most POCs ({biggestReach.pocCount.toLocaleString()}) at {(biggestReach.conversionRate * 100).toFixed(1)}%.
+                  Shift high-value campaigns toward the higher-converting sequence.</>
+                )}
+              </>
+            ) : (
+              <>Multi-step sequences convert better than single-channel. Test adding a follow-up channel.</>
+            )}
+          </p>
+        </div>
       </div>
 
       {/* Journey cards */}
