@@ -8,9 +8,8 @@ import { CampaignListPage } from './pages/CampaignListPage';
 import { CampaignCreatePage } from './pages/CampaignCreatePage';
 import { CampaignDetailPage } from './pages/CampaignDetailPage';
 import { CalendarPage } from './pages/CalendarPage';
-import { TemplatesPage } from './pages/TemplatesPage';
 import { AssetLibraryPage } from './pages/AssetLibraryPage';
-import { BundlesPage } from './pages/BundlesPage';
+import { CampaignKitsPage } from './pages/CampaignKitsPage';
 import { ReportingPage } from './pages/ReportingPage';
 import { UsersPage } from './pages/UsersPage';
 import { ContentStudioPage } from './pages/ContentStudioPage';
@@ -43,8 +42,7 @@ export default function App() {
               <Route path="campaigns/new" element={<CampaignCreatePage />} />
               <Route path="campaigns/:id" element={<CampaignDetailPage />} />
               <Route path="calendar" element={<CalendarPage />} />
-              <Route path="bundles" element={<BundlesPage />} />
-              <Route path="templates" element={<TemplatesPage />} />
+              <Route path="kits" element={<CampaignKitsPage />} />
               <Route path="assets" element={<AssetLibraryPage />} />
               <Route path="users" element={<UsersPage />} />
               <Route path="settings" element={<SettingsPage />} />

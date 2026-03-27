@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
-import { Megaphone, CalendarDays, Package, FileText, ImageIcon, BarChart3, Inbox, Users, Settings, Palette, LogOut } from 'lucide-react';
+import { Megaphone, CalendarDays, Package, ImageIcon, BarChart3, Inbox, Users, Settings, Palette, LogOut } from 'lucide-react';
 import { clsx } from 'clsx';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,8 +10,7 @@ const navItems = [
   { to: '/studio', icon: Palette, label: 'Content Studio', roles: ['content_creator'] },
   { to: '/campaigns', icon: Megaphone, label: 'Campaigns', roles: ['dc_manager', 'wholesaler_manager'] },
   { to: '/calendar', icon: CalendarDays, label: 'Calendar', roles: ['dc_manager', 'wholesaler_manager'] },
-  { to: '/bundles', icon: Package, label: 'Bundles', roles: ['dc_manager', 'wholesaler_manager'] },
-  { to: '/templates', icon: FileText, label: 'Templates', roles: ['dc_manager', 'content_creator'] },
+  { to: '/kits', icon: Package, label: 'Campaign Kits', roles: ['dc_manager', 'wholesaler_manager', 'content_creator'] },
   { to: '/assets', icon: ImageIcon, label: 'Assets', roles: ['dc_manager', 'content_creator'] },
   { to: '/users', icon: Users, label: 'Users', roles: ['dc_manager'] },
   { to: '/settings', icon: Settings, label: 'Settings' },
